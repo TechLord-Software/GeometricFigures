@@ -10,7 +10,7 @@ namespace GraphicLibrary.GLObjects
         /// <summary>
         /// Значения для деактивации текущего vao
         /// </summary>
-        public const int UNBIND_VALUE = 0;
+        private const int UNBIND_VALUE = 0;
         /// <summary>
         /// Идентификтор объекта
         /// </summary>
