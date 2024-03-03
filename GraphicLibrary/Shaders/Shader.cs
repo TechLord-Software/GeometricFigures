@@ -9,9 +9,55 @@ namespace GraphicLibrary.Shaders
     public class Shader
     {
         /// <summary>
+        /// Путь к вершинному шейдеру для объектов
+        /// </summary>
+        private const string _colorVertexPath = @"Shaders\Data\color.vert";
+        /// <summary>
+        /// Путь к фрагментному шейдеру для объектов
+        /// </summary>
+        private const string _colorFragmentPath = @"Shaders\Data\color.frag";
+        /// <summary>
+        /// Путь к вершинному шейдеру для источников освещения
+        /// </summary>
+        private const string _lightVertexPath = @"Shaders\Data\light.vert";
+        /// <summary>
+        /// Путь к фрагментному шейдеру для источников освещения
+        /// </summary>
+        private const string _lightFragmentPath = @"Shaders\Data\light.frag";
+        /// <summary>
         /// Значения для деактивации шейдерной программы
         /// </summary>
         private const int UNBIND_VALUE = 0;
+        /// <summary>
+        /// Позиция для вершин во всех шейдерах
+        /// </summary>
+        public const int VERTEX_LOCATION = 0;
+        /// <summary>
+        /// Позиция для нормалей во всех шейдерах
+        /// </summary>
+        public const int NORMAL_LOCATION = 1;
+        /// <summary>
+        /// Количество элементов массива вершин, отправялемых в шейдеры за раз
+        /// </summary>
+        public const int VERTEX_COUNT = 3;
+        /// <summary>
+        /// Количество элементов массива нормалей, отправляемых за раз
+        /// </summary>
+        public const int NORMAL_COUNT = 3;
+
+
+
+        /// <summary>
+        /// Шейдер для объектов, не являющихся источниками освещения
+        /// </summary>
+        public static readonly Shader ColorShader;
+        /// <summary>
+        /// Шейдер для источников освещения
+        /// </summary>
+        public static readonly Shader LightShader;
+
+        
+        
         /// <summary>
         /// Идентификатор вершинного шейдера
         /// </summary>
@@ -26,6 +72,15 @@ namespace GraphicLibrary.Shaders
         private int _program;
 
 
+
+        /// <summary>
+        /// Приватный конструктор, инициализирующий шейдеры для источников освещения и объектов
+        /// </summary>
+        static Shader()
+        {
+            ColorShader = new Shader(_colorVertexPath, _colorFragmentPath);
+            LightShader = new Shader(_lightVertexPath, _lightFragmentPath);
+        }
         /// <summary>
         /// Компиляция шейдеров по путям vertPath и fragPath, создание шейдерной программы
         /// </summary>
