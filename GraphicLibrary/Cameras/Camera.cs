@@ -83,7 +83,7 @@ namespace GraphicLibrary.Cameras
         /// </summary>
         public Vector3 Up { get; private set; }
         /// <summary>
-        /// Горизонтальный вектор камеры
+        /// Правый вектор камеры
         /// </summary>
         public Vector3 Right { get; private set; }
 

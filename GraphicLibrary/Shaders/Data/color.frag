@@ -48,7 +48,7 @@ void main()
         result += calculateLight(lights[i], normal, Position, viewDirection);
     }
 
-    outColor = vec4(result, 1.0);
+    outColor = vec4(result, material.transparency);
 }
 
 vec3 calculateLight(LightSource light, vec3 normal, vec3 position, vec3 viewDirection){
