@@ -2,20 +2,18 @@
 
 namespace GraphicLibrary.Materials
 {
-    public class Material
+    /// <summary>
+    /// Сттруктура, содержащая информацию о материале объекта
+    /// </summary>
+    public struct Material
     {
         /// <summary>
-        /// Минимальное значение поля _shininess
+        /// Объект структуры по умолчанию
         /// </summary>
-        private const float MIN_SHININESS = 0f;
-        /// <summary>
-        /// Максимальное значение поля _shininess
-        /// </summary>
-        private const float MAX_SHININESS = 1000f;
-        /// <summary>
-        /// Значение по умолчанию для поля _shininess
-        /// </summary>
-        private const float DEFAULT_SHININESS = 64f;
+        private static readonly Material Default;
+
+
+
         /// <summary>
         /// Минимальное значение поля _transparency
         /// </summary>
@@ -28,12 +26,10 @@ namespace GraphicLibrary.Materials
         /// Значение по умолчанию для поля _transparency
         /// </summary>
         private const float DEFAULT_TRANSPARENCY = 0f;
-
         /// <summary>
-        /// Параметр, характеризующий способность предмета блестеть
-        /// Чем выше значение, тем больше предмет бликует
+        /// Значение по умолчанию для свойства Name
         /// </summary>
-        private float _shininess;
+        private const string DEFAULT_NAME = "Material";
         /// <summary>
         /// Прозрачность предмета
         /// 0 - абсолютно непрозрачный
@@ -41,23 +37,14 @@ namespace GraphicLibrary.Materials
         /// </summary>
         private float _transparency;
 
+
         /// <summary>
-        /// Коэффициент фонового освещения
+        /// Структура, содержащая компоненты для затенения по Фонгу
         /// </summary>
-        public Vector3 Ambient;
-        /// <summary>
-        /// Коэффициент диффузного освещения
-        /// </summary>
-        public Vector3 Diffuse;
-        /// <summary>
-        /// Коэффициент бликового освещения
-        /// </summary>
-        public Vector3 Specular;
-        public float Shininess
-        {
-            get => _shininess;
-            set => _shininess = MathHelper.Clamp(value, MIN_SHININESS, MAX_SHININESS);
-        }
+        public PhongModel PhongParameters { get; set; }
+         
+
+
         public float Transparency
         {
             get => _transparency;
@@ -69,28 +56,43 @@ namespace GraphicLibrary.Materials
         public string Name { get; set; }
 
 
+
         /// <summary>
-        /// Конструктор класса Material
+        /// Статический конструктор
         /// </summary>
-        /// <param name="ambient"> коэффициент фонового освещения </param>
-        /// <param name="diffuse"> коэффициент диффузного освещения </param>
-        /// <param name="specular"> коэффициент бликового освещения </param>
-        /// <param name="shininness"> параметр, характеризующий способность предмета блестеть </param>
-        /// <param name="transparency"> прозрачность </param>
-        public Material(Vector3 ambient, Vector3 diffuse, Vector3 specular, float shininness, float transparency)
+        static Material()
         {
-            Ambient = ambient;
-            Diffuse = diffuse;
-            Specular = specular;
-            Shininess = shininness;
-            Transparency = transparency;
+            Default = new Material(PhongModel.Default, DEFAULT_TRANSPARENCY, DEFAULT_NAME);
         }
-        public Material(Vector3 ambient, Vector3 diffuse, Vector3 specular, float shininness) :
-            this(ambient, diffuse, specular, shininness, DEFAULT_TRANSPARENCY)
+
+
+        public Material()
+        {
+            this = Default;
+        }
+        public Material(PhongModel phongParameters) :
+            this(phongParameters, DEFAULT_NAME)
         { }
-        public Material(Vector3 ambient, Vector3 diffuse, Vector3 specular) :
-            this(ambient, diffuse, specular, DEFAULT_SHININESS)
+        public Material(PhongModel phongParameters, float transparency) :
+            this(phongParameters, transparency, DEFAULT_NAME)
         { }
+        public Material(PhongModel phongParameters, string name) :
+            this(phongParameters, DEFAULT_TRANSPARENCY, name)
+        { }
+        /// <summary>
+        /// Конструктор структуры Material
+        /// </summary>
+        /// <param name="phongParameters"> структура, содержащая компоненты для затенения по Фонгу </param>
+        /// <param name="name"> имя </param>
+        /// <param name="transparency"> прозрачность </param>
+        public Material(PhongModel phongParameters, float transparency, string name)
+        {
+            PhongParameters = phongParameters;    
+            Transparency = transparency;
+            Name = name;
+        }
+        
+
 
         /// <summary>
         /// Метод парсинга файла формата .mtl
