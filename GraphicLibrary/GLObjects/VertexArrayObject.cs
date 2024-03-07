@@ -35,6 +35,13 @@ namespace GraphicLibrary.GLObjects
         /// </summary>
         public void Deactivate()
         {
+            DeactivateCurrent();
+        }
+        /// <summary>
+        /// Деактивация (отвязка) текущего привязанного объекта
+        /// </summary>
+        public static void DeactivateCurrent()
+        {
             GL.BindVertexArray(UNBIND_VALUE);
         }
         /// <summary>
@@ -48,14 +55,16 @@ namespace GraphicLibrary.GLObjects
         ///     затем по позиции 1 отправляются 4 элемента (цвет вершины), 
         ///     но уже со сдвигом 3 от начала рассматриваемого куска
         /// </summary>
-        /// <param name="index"> позция в шейдере </param>
+        /// <param name="index"> позиция в шейдере </param>
         /// <param name="size"> размер куска (в элементах) </param>
         /// <param name="stride"> колчество элементов для обработки </param>
         /// <param name="offset"> свдиг в куске (в элементах) </param>
         public void AttribPointer(int index, int size, int stride, int offset)
         {
+            Activate();
             GL.VertexAttribPointer(index, size, VertexAttribPointerType.Float, true, stride * sizeof(float), offset * sizeof(float));
             GL.EnableVertexAttribArray(index);
+            Deactivate();
         }
 
         /// <summary>

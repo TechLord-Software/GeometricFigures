@@ -33,15 +33,15 @@
         /// <summary>
         /// Коэффициент с членом в нулевой степени
         /// </summary>
-        public float Constant { get; set; }
+        public float Constant;
         /// <summary>
         /// Коэффициент с членом в первой степени
         /// </summary>
-        public float Linear { get; set; }
+        public float Linear;
         /// <summary>
         /// Коэффициент с членом во второй степени
         /// </summary>
-        public float Quadratic { get; set; }
+        public float Quadratic;
 
 
         static LightAttenuationParameters()

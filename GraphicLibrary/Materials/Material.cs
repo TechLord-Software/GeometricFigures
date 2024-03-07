@@ -10,7 +10,7 @@ namespace GraphicLibrary.Materials
         /// <summary>
         /// Объект структуры по умолчанию
         /// </summary>
-        private static readonly Material Default;
+        public static readonly Material Default;
 
 
 
@@ -41,7 +41,7 @@ namespace GraphicLibrary.Materials
         /// <summary>
         /// Структура, содержащая компоненты для затенения по Фонгу
         /// </summary>
-        public PhongModel PhongParameters { get; set; }
+        public PhongModel PhongParameters;
          
 
 
@@ -53,7 +53,7 @@ namespace GraphicLibrary.Materials
         /// <summary>
         /// Имя материала
         /// </summary>
-        public string Name { get; set; }
+        public string Name;
 
 
 

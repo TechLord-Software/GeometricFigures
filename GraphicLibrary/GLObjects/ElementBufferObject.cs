@@ -44,6 +44,13 @@ namespace GraphicLibrary.GLObjects
         /// </summary>
         public void Deactivate()
         {
+            DeactivateCurrent();
+        }
+        /// <summary>
+        /// Деактивация (отвязка) текущего привязанного объекта
+        /// </summary>
+        public static void DeactivateCurrent()
+        {
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, UNBIND_VALUE);
         }
     }

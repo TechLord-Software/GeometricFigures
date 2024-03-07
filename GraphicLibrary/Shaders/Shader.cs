@@ -11,39 +11,41 @@ namespace GraphicLibrary.Shaders
         /// <summary>
         /// Путь к вершинному шейдеру для объектов
         /// </summary>
-        private const string _colorVertexPath = @"Shaders\Data\color.vert";
+        private const string COLOR_VERTEX_PATH = @"Shaders\Data\color.vert";
         /// <summary>
         /// Путь к фрагментному шейдеру для объектов
         /// </summary>
-        private const string _colorFragmentPath = @"Shaders\Data\color.frag";
+        private const string COLOR_FRAGMENT_PATH = @"Shaders\Data\color.frag";
         /// <summary>
         /// Путь к вершинному шейдеру для источников освещения
         /// </summary>
-        private const string _lightVertexPath = @"Shaders\Data\light.vert";
+        private const string LIGHT_VERTEX_PATH = @"Shaders\Data\light.vert";
         /// <summary>
         /// Путь к фрагментному шейдеру для источников освещения
         /// </summary>
-        private const string _lightFragmentPath = @"Shaders\Data\light.frag";
+        private const string LIGHT_FRAGMENT_PATH = @"Shaders\Data\light.frag";
         /// <summary>
         /// Значения для деактивации шейдерной программы
         /// </summary>
         private const int UNBIND_VALUE = 0;
+
+
         /// <summary>
         /// Позиция для вершин во всех шейдерах
         /// </summary>
-        public const int VERTEX_LOCATION = 0;
+        public const int VertexLocation = 0;
         /// <summary>
         /// Позиция для нормалей во всех шейдерах
         /// </summary>
-        public const int NORMAL_LOCATION = 1;
+        public const int NormalLocation = 1;
         /// <summary>
         /// Количество элементов массива вершин, отправялемых в шейдеры за раз
         /// </summary>
-        public const int VERTEX_COUNT = 3;
+        public const int VertexCount = 3;
         /// <summary>
         /// Количество элементов массива нормалей, отправляемых за раз
         /// </summary>
-        public const int NORMAL_COUNT = 3;
+        public const int NormalCount = 3;
 
 
 
@@ -78,8 +80,8 @@ namespace GraphicLibrary.Shaders
         /// </summary>
         static Shader()
         {
-            ColorShader = new Shader(_colorVertexPath, _colorFragmentPath);
-            LightShader = new Shader(_lightVertexPath, _lightFragmentPath);
+            ColorShader = new Shader(COLOR_VERTEX_PATH, COLOR_FRAGMENT_PATH);
+            LightShader = new Shader(LIGHT_VERTEX_PATH, LIGHT_FRAGMENT_PATH);
         }
         /// <summary>
         /// Компиляция шейдеров по путям vertPath и fragPath, создание шейдерной программы
