@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace GraphicLibrary.Models
+namespace GraphicLibrary.Models.Interfaces
 {
     public interface IExternallyTransformable
     {

@@ -1,5 +1,6 @@
 ﻿using GraphicLibrary.GLObjects;
 using GraphicLibrary.Materials;
+using GraphicLibrary.Models.Interfaces;
 using GraphicLibrary.Shaders;
 using OpenTK.Mathematics;
 
@@ -70,6 +71,7 @@ namespace GraphicLibrary.Models
         public ModelUnit(float[] vertices, uint[] indices, float[] normals, Material material)
         {
             Material = material;
+
             _rotationMatrix = Matrix4.Identity;
             _translationMatrix = Matrix4.Identity;
             _scaleMatrix = Matrix4.Identity;
