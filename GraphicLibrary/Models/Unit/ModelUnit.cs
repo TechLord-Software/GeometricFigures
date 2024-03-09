@@ -1,15 +1,16 @@
 ﻿using GraphicLibrary.GLObjects;
 using GraphicLibrary.Materials;
+using GraphicLibrary.Models.Information;
 using GraphicLibrary.Models.Interfaces;
 using GraphicLibrary.Shaders;
 using OpenTK.Mathematics;
 
-namespace GraphicLibrary.Models
+namespace GraphicLibrary.Models.Unit
 {
     /// <summary>
     /// Класс трехмерной модели
     /// </summary>
-    public class ModelUnit : IExternallyTransformable
+    public class ModelUnit : ITransformableModelUnit, IDrawable
     {
         /// <summary>
         /// Матрица поворота
@@ -24,7 +25,7 @@ namespace GraphicLibrary.Models
         /// </summary>
         private Matrix4 _scaleMatrix;
 
-     
+
         /// <summary>
         /// Объект, хранящий вершины модели
         /// </summary>
@@ -48,7 +49,7 @@ namespace GraphicLibrary.Models
         /// <summary>
         /// Материал модели
         /// </summary>
-        public Material Material;
+        public Material Material { get; set; }
 
 
 
@@ -96,11 +97,11 @@ namespace GraphicLibrary.Models
             VertexArrayObject.DeactivateCurrent();
             ElementBufferObject.DeactivateCurrent();
         }
-        public ModelUnit(float[] vertices, uint[] indices, float[] normals) 
+        public ModelUnit(float[] vertices, uint[] indices, float[] normals)
             : this(vertices, indices, normals, Material.Default) { }
-        
 
-        
+
+
         /// <summary>
         /// Метод отрисовки модели
         /// </summary>

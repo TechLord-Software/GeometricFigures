@@ -1,8 +1,9 @@
-﻿using OpenTK.Mathematics;
+﻿using GraphicLibrary.Models.Information;
+using OpenTK.Mathematics;
 
 namespace GraphicLibrary.Models.Interfaces
 {
-    public interface IExternallyTransformable
+    public interface ITransformable
     {
         void Move(Vector3 shifts);
         void Scale(Size scale);

@@ -23,11 +23,11 @@ namespace GraphicLibrary.Cameras
         /// <summary>
         /// Расстояние до дальней плоскости отсечения
         /// </summary>
-        protected float _renderDistance;
+        protected float renderDistance;
         /// <summary>
         /// Угол обзора
         /// </summary>
-        protected float _fov;
+        protected float fov;
 
 
         // На будущее: добавить модель,
@@ -41,13 +41,13 @@ namespace GraphicLibrary.Cameras
 
         public float RenderDistance
         {
-            get => _renderDistance;
-            set => _renderDistance = Math.Max(value, DEPTH_NEAR);
+            get => renderDistance;
+            set => renderDistance = Math.Max(value, DEPTH_NEAR);
         }
         public float Fov
         {
-            get => _fov;
-            set => _fov = MathHelper.Clamp(value, MIN_FOV, MAX_FOV);
+            get => fov;
+            set => fov = MathHelper.Clamp(value, MIN_FOV, MAX_FOV);
         }
 
         /// <summary>
