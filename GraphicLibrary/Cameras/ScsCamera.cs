@@ -1,11 +1,12 @@
 ﻿using GraphicLibrary.Cameras.Interfaces;
 using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GraphicLibrary.Cameras
 {
     /// <summary>
-    /// Камера, расположенная на поверхности сферы, и передвигающаяся по ней.
+    /// Камера, расположенная на поверхности сферы и передвигающаяся по ней.
     /// Задается в сферической системе координат (spherical coordinate system - scs)
     /// </summary>
     public class ScsCamera : Camera, IMouseMove, IMouseScroll
@@ -13,18 +14,9 @@ namespace GraphicLibrary.Cameras
         private const float MIN_RADIUS = 1;
         private const float DELTA_THETA = 1e-5f;
 
-        private const float MIN_MOUSE_SENSITIVITY = 0.01f;
-        private const float MAX_MOUSE_SENSITIVITY = 10f;
-        private const float DEFAULT_MOUSE_SENSITIVITY = 0.3f;
+        
 
-        private const float MIN_SCROLL_SENSITIVITY = 1f;
-        private const float MAX_SCROLL_SENSITIVITY = 100f;
-        private const float DEFAULT_SCROLL_SENSITIVITY = 25f;
-
-
-
-        private float _mouseSensitivity;
-        private float _scrollSensitivity;
+        
 
         private float _r;
         private float _theta;
@@ -60,16 +52,7 @@ namespace GraphicLibrary.Cameras
             }
         }
 
-        public float MouseSensitivity
-        {
-            get => _mouseSensitivity;
-            set => _mouseSensitivity = MathHelper.Clamp(value, MIN_MOUSE_SENSITIVITY, MAX_MOUSE_SENSITIVITY);
-        }
-        public float ScrollSensitivity
-        {
-            get => _scrollSensitivity;
-            set => _scrollSensitivity = MathHelper.Clamp(value, MIN_SCROLL_SENSITIVITY, MAX_SCROLL_SENSITIVITY);
-        }
+        
 
 
 
@@ -101,7 +84,7 @@ namespace GraphicLibrary.Cameras
         // FIXME
         // ЛКМ + движение мышкой для поворота камерой
         // СКМ + движение мышкой для смены цели
-        public void MouseMove(MouseState mousePosition) 
+        public void MouseMove(MouseState mousePosition, MouseButtonEventArgs e) 
         {
             
         }
