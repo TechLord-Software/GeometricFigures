@@ -1,6 +1,6 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 
-namespace GraphicLibrary.Cameras
+namespace GraphicLibrary.Cameras.Interfaces
 {
     public interface IKeyDown
     {

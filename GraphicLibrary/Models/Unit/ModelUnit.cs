@@ -1,7 +1,7 @@
 ﻿using GraphicLibrary.GLObjects;
 using GraphicLibrary.Materials;
 using GraphicLibrary.Models.Information;
-using GraphicLibrary.Models.Interfaces;
+using GraphicLibrary.Models.Interfaces.Common;
 using GraphicLibrary.Shaders;
 using OpenTK.Mathematics;
 

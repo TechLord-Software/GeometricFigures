@@ -1,4 +1,5 @@
-﻿using OpenTK.Mathematics;
+﻿using GraphicLibrary.Models.Information;
+using OpenTK.Mathematics;
 
 namespace GraphicLibrary.Models.Interfaces.Common
 {

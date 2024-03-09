@@ -1,7 +1,4 @@
-﻿using System.Numerics;
-using System.Xml.Linq;
-
-namespace GraphicLibrary.Models
+﻿namespace GraphicLibrary.Models.Information
 {
     /// <summary>
     /// Структура, задающая размер модели относительно начального размера

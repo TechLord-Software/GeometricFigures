@@ -1,5 +1,5 @@
 ﻿using GraphicLibrary.Materials;
-using GraphicLibrary.Models;
+using GraphicLibrary.Models.Information;
 using GraphicLibrary.Models.Interfaces.Common;
 using GraphicLibrary.Models.Interfaces.Components;
 using GraphicLibrary.Models.Unit;

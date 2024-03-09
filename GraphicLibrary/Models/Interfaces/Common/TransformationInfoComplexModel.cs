@@ -1,4 +1,5 @@
-﻿using GraphicLibrary.Models.Unit;
+﻿using GraphicLibrary.Models.Information;
+using GraphicLibrary.Models.Unit;
 
 namespace GraphicLibrary.Models.Interfaces.Common
 {

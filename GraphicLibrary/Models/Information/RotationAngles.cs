@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace GraphicLibrary.Models
+namespace GraphicLibrary.Models.Information
 {
     /// <summary>
     /// Структура, хранящая углы вращения вокруг координатных осей

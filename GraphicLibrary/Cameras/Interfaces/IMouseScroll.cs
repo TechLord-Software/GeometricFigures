@@ -1,4 +1,4 @@
-﻿namespace GraphicLibrary.Cameras
+﻿namespace GraphicLibrary.Cameras.Interfaces
 {
     public interface IMouseScroll
     {
