@@ -1,4 +1,4 @@
-﻿using GraphicLibrary.Cameras.Info;
+﻿using GraphicLibrary.Cameras.Settings;
 using GraphicLibrary.Models.Interfaces.Common;
 using GraphicLibrary.Models.Unit;
 using OpenTK.Mathematics;
@@ -122,14 +122,11 @@ namespace GraphicLibrary.Cameras
             base.position = position;
             Target = target;
             Settings = settings;
-
-            Update();
         }
         /// <summary>
         /// Обновление векторов и матриц
         /// </summary>
         protected abstract void Update();
-
         /// <summary>
         /// Метод обработки перемещения мыши
         /// </summary>

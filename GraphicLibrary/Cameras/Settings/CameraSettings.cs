@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 
-namespace GraphicLibrary.Cameras.Info
+namespace GraphicLibrary.Cameras.Settings
 {
     public struct CameraSettings
     {

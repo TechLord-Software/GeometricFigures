@@ -1,4 +1,5 @@
-﻿using GraphicLibrary.Cameras.Interfaces;
+﻿using GraphicLibrary.Cameras.Settings;
+using GraphicLibrary.Models.Unit;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -9,17 +10,34 @@ namespace GraphicLibrary.Cameras
     /// Камера, расположенная на поверхности сферы и передвигающаяся по ней.
     /// Задается в сферической системе координат (spherical coordinate system - scs)
     /// </summary>
-    public class ScsCamera : Camera, IMouseMove, IMouseScroll
+    public class ScsCamera : Camera
     {
+        /// <summary>
+        /// Минимальный радиус
+        /// </summary>
         private const float MIN_RADIUS = 1;
-        private const float DELTA_THETA = 1e-5f;
+        /// <summary>
+        /// Минимальный угол тета
+        /// </summary>
+        private const float MIN_THETA = 1e-5f;
+        /// <summary>
+        /// Максимальный угол тета
+        /// </summary>
+        private const float MAX_THETA = MathHelper.Pi - MIN_THETA;
 
-        
 
-        
 
+        /// <summary>
+        /// Расстояние от камеры до точки фокусировки
+        /// </summary>
         private float _r;
+        /// <summary>
+        /// Угол тета
+        /// </summary>
         private float _theta;
+        /// <summary>
+        /// Угол фи
+        /// </summary>
         private float _phi;
 
 
@@ -29,7 +47,7 @@ namespace GraphicLibrary.Cameras
             get => _r;
             set
             {
-                _r = MathHelper.Clamp(value, MIN_RADIUS, RenderDistance);
+                _r = MathHelper.Clamp(value, MIN_RADIUS, Settings.RenderDistance);
                 Update();
             }
         }
@@ -38,7 +56,7 @@ namespace GraphicLibrary.Cameras
             get => _theta;
             set
             {
-                _theta = MathHelper.Clamp(value, DELTA_THETA, MathHelper.Pi - DELTA_THETA);
+                _theta = MathHelper.Clamp(value, MIN_THETA, MAX_THETA);
                 Update();
             }
         }
@@ -56,13 +74,52 @@ namespace GraphicLibrary.Cameras
 
 
 
+        /// <summary>
+        /// Конструтор класса ScsCamera
+        /// </summary>
+        /// <param name="position"> кооринаты камеры </param>
+        /// <param name="target"> координаты цели, куда направлена камера </param>
+        /// <param name="settings"> настройки камеры </param>
+        public ScsCamera(Vector3 position, Vector3 target, CameraSettings settings)
+            : base(position, target, settings)
+        {
+            Initialize();
+        }
+        /// <summary>
+        /// Конструтор класса ScsCamera
+        /// </summary>
+        /// <param name="position"> кооринаты камеры </param>
+        /// <param name="target"> координаты цели, куда направлена камера </param>
+        /// <param name="settings"> настройки камеры </param>
+        /// <param name="unit"> простая модель </param>
+        public ScsCamera(Vector3 position, Vector3 target, CameraSettings settings, ModelUnit unit)
+            : base(position, target, settings, unit)
+        {
+            Initialize();
+        }
+        /// <summary>
+        /// Конструтор класса ScsCamera
+        /// </summary>
+        /// <param name="position"> кооринаты камеры </param>
+        /// <param name="target"> координаты цели, куда направлена камера </param>
+        /// <param name="settings"> настройки камеры </param>
+        /// <param name="units"> сложная модель </param>
+        public ScsCamera(Vector3 position, Vector3 target, CameraSettings settings, IEnumerable<ModelUnit> units)
+            : base(position, target, settings, units)
+        {
+            Initialize();
+        }
 
-        // FIXME
-        public ScsCamera()
+
+        /// <summary>
+        /// Инициализация
+        /// </summary>
+        private void Initialize()
         {
             _r = MathF.Sqrt(Position.X * Position.X + Position.Y * Position.Y + Position.Z * Position.Z);
             _theta = MathF.Acos(Position.Y / R);
             _phi = MathF.Atan2(Position.Z, Position.X);
+            Update();
         }
 
 
@@ -78,19 +135,35 @@ namespace GraphicLibrary.Cameras
             Up = Vector3.Normalize(Vector3.Cross(Direction, Right));
 
             ViewMatrix = Matrix4.LookAt(Position, Target, Up);
-            ProjectionMatrix = Matrix4.CreatePerspectiveFieldOfView(Fov, AspectRatio, DEPTH_NEAR, RenderDistance);
+            ProjectionMatrix = Matrix4.CreatePerspectiveFieldOfView(Settings.Fov, Settings.AspectRatio, CameraSettings.DepthNear, Settings.RenderDistance);
         }
+        public override void OnMouseMove(MouseState mousePosition, MouseButtonEventArgs e)
+        {
+            if (!e.IsPressed) return;
 
-        // FIXME
-        // ЛКМ + движение мышкой для поворота камерой
-        // СКМ + движение мышкой для смены цели
-        public void MouseMove(MouseState mousePosition, MouseButtonEventArgs e) 
-        {
-            
+            float dx = mousePosition.X - mousePosition.PreviousX;
+            float dy = mousePosition.Y - mousePosition.PreviousY;
+
+            if (e.Button == MouseButton.Left)
+            {
+                Phi += dx * Settings.MouseSensitivity;
+                Theta -= dy * Settings.MouseSensitivity;
+            }
+            else if (e.Button == MouseButton.Middle)
+            {
+                Target -= dx * Settings.MouseSensitivity * Right;
+                Target += dy * Settings.MouseSensitivity * Up;
+                position -= dx * Settings.MouseSensitivity * Right;
+                position += dy * Settings.MouseSensitivity * Up;
+            }
         }
-        public void MouseScroll(float offset) 
+        public override void OnKeyDown(KeyboardState input)
         {
-            R -= offset * ScrollSensitivity;
+            return;
+        }
+        public override void OnMouseScroll(float offset)
+        {
+            R -= offset * Settings.WheelSensitivity;
         }
     }
 }
