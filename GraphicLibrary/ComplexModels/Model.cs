@@ -1,24 +1,14 @@
 ﻿using GraphicLibrary.Models;
 using GraphicLibrary.Models.Interfaces;
+using GraphicLibrary.Models.Interfaces.Common;
 using GraphicLibrary.Models.Unit;
 using GraphicLibrary.Shaders;
 using OpenTK.Mathematics;
 
 namespace GraphicLibrary.ComplexModels
 {
-    public class Model : ComplexModel, IDrawable, ITransformableModel
+    public class Model : TransformationComplexModel, IDrawable, ITransformableModel
     {
-        /// <summary>
-        /// Размер модели
-        /// </summary>
-        private Size _size;
-        /// <summary>
-        /// Углы поворота
-        /// </summary>
-        private RotationAngles _rotationAngles;
-
-
-
         /// <summary>
         /// Используемый шейдер
         /// </summary>
@@ -33,8 +23,27 @@ namespace GraphicLibrary.ComplexModels
         /// Позиция модели
         /// </summary>
         public Vector3 Position => position;
-        public Size Size => _size;
-        public RotationAngles RotationAngles => _rotationAngles;
+        /// <summary>
+        /// Размер модели
+        /// </summary>
+        public Size Size => size;
+        /// <summary>
+        /// Углы поворота модели
+        /// </summary>
+        public RotationAngles RotationAngles => rotationAngles;
+
+
+        /// <summary>
+        /// Конструктор класса Model
+        /// </summary>
+        public Model()
+        {
+            models = new List<ModelUnit>();
+
+            position = Vector3.Zero;
+            size = Size.One;
+            rotationAngles = RotationAngles.Zero;
+        }
 
 
         /// <summary>
@@ -79,11 +88,11 @@ namespace GraphicLibrary.ComplexModels
                 model.Rotate(angles);
             }
 
-            _rotationAngles.X += angles.X;
-            _rotationAngles.Y += angles.Y;
-            _rotationAngles.Z += angles.Z;
+            rotationAngles.X += angles.X;
+            rotationAngles.Y += angles.Y;
+            rotationAngles.Z += angles.Z;
 
-            _size.UpdateAfterRotation(angles);
+            size.UpdateAfterRotation(angles);
         }
 
         /// <summary>
@@ -97,9 +106,9 @@ namespace GraphicLibrary.ComplexModels
                 model.Scale(scale);
             }
 
-            _size.X += scale.X;
-            _size.Y += scale.Y;
-            _size.Z += scale.Z;
+            size.X += scale.X;
+            size.Y += scale.Y;
+            size.Z += scale.Z;
         }
     }
 }

@@ -3,5 +3,5 @@ using GraphicLibrary.Models.Interfaces.Components;
 
 namespace GraphicLibrary.ComplexModels
 {
-    internal interface IModel : IDynamicComponents, ITransformationInfo { }
+    public interface IModel : IDynamicComponents, ITransformationInfo { }
 }

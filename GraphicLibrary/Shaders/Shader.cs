@@ -1,5 +1,6 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
+using System.Reflection.Metadata;
 
 namespace GraphicLibrary.Shaders
 {
@@ -179,6 +180,25 @@ namespace GraphicLibrary.Shaders
             Activate();
             int location = GL.GetUniformLocation(_program, name);
             GL.Uniform1(location, data);
+            Deactivate();
+        }
+        public void SetFloatUniform(string name, float data)
+        {
+            Activate();
+            int location = GL.GetUniformLocation(_program, name);
+            GL.Uniform1(location, data);
+            Deactivate();
+        }
+        /// <summary>
+        /// Метод, отправляющий трекомпонентный вектор в шейдер
+        /// </summary>
+        /// <param name="name"> имя формы </param>
+        /// <param name="data"> вектор </param>
+        public void SetVector3Uniform(string name, Vector3 data)
+        {
+            Activate();
+            int location = GL.GetUniformLocation(_program, name);
+            GL.Uniform3(location, data);
             Deactivate();
         }
         /// <summary>

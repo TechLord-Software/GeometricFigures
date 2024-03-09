@@ -1,4 +1,4 @@
-﻿namespace GraphicLibrary.Models.Interfaces
+﻿namespace GraphicLibrary.Models.Interfaces.TransformationInformation
 {
     public interface ISizeInfo
     {

@@ -1,6 +1,6 @@
 ﻿using GraphicLibrary.Models.Unit;
 
-namespace GraphicLibrary.Models.Interfaces
+namespace GraphicLibrary.Models.Interfaces.Components
 {
     public interface IStaticComponents
     {

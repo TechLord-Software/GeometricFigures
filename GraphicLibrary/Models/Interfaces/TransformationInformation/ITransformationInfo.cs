@@ -1,4 +1,4 @@
-﻿namespace GraphicLibrary.Models.Interfaces
+﻿namespace GraphicLibrary.Models.Interfaces.TransformationInformation
 {
-    internal interface ITransformationInfo : IPositionInfo, ISizeInfo, IRotationInfo { }
+    public interface ITransformationInfo : IPositionInfo, ISizeInfo, IRotationInfo { }
 }

@@ -2,5 +2,5 @@
 
 namespace GraphicLibrary.ComplexModels
 {
-    internal interface ITransformableModel : IModel, ITransformable { }
+    public interface ITransformableModel : IModel, ITransformable { }
 }

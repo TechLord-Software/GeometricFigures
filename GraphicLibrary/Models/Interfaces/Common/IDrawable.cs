@@ -1,4 +1,4 @@
-﻿namespace GraphicLibrary.Models.Interfaces
+﻿namespace GraphicLibrary.Models.Interfaces.Common
 {
     public interface IDrawable
     {

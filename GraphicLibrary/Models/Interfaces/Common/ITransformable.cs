@@ -1,7 +1,6 @@
-﻿using GraphicLibrary.Models.Information;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 
-namespace GraphicLibrary.Models.Interfaces
+namespace GraphicLibrary.Models.Interfaces.Common
 {
     public interface ITransformable
     {
