@@ -1,11 +1,12 @@
-﻿using OpenTK.Mathematics;
+﻿using GraphicLibrary.Models.Interfaces.Common;
+using OpenTK.Mathematics;
 
 namespace GraphicLibrary.Cameras
 {
     /// <summary>
     /// Абстрактный класс камеры
     /// </summary>
-    public abstract class Camera
+    public abstract class Camera : ComplexModel
     {
         /// <summary>
         /// Расстояние до ближней плоскости отсечения
@@ -28,15 +29,6 @@ namespace GraphicLibrary.Cameras
         /// Угол обзора
         /// </summary>
         protected float fov;
-
-
-        // На будущее: добавить модель,
-        // методы для отображения и
-        // изменения положения модели
-        // в пространстве вместе с камерой
-        //
-        //private ModelUnit model;
-
 
 
         public float RenderDistance
@@ -66,10 +58,7 @@ namespace GraphicLibrary.Cameras
         public float AspectRatio { get; set; }
 
 
-        /// <summary>
-        /// Координаты камеры
-        /// </summary>
-        public Vector3 Position { get; private set; }
+
         /// <summary>
         /// Направление камеры
         /// </summary>

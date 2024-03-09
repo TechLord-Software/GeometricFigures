@@ -10,7 +10,7 @@ namespace GraphicLibrary.Models.Unit
     /// <summary>
     /// Класс трехмерной модели
     /// </summary>
-    public class ModelUnit : ITransformableModelUnit, IDrawable
+    public class ModelUnit : ITransformableModelUnit, IDrawable, ICloneable
     {
         /// <summary>
         /// Матрица поворота
@@ -101,6 +101,24 @@ namespace GraphicLibrary.Models.Unit
             : this(vertices, indices, normals, Material.Default) { }
 
 
+        /// <summary>
+        /// Конструктор копирования
+        /// </summary>
+        /// <param name="unit"> простая модель </param>
+        private ModelUnit(ModelUnit unit)
+        {
+            Material = unit.Material;
+
+            _rotationMatrix = unit.RotationMatrix;
+            _translationMatrix = unit.TranslationMatrix;
+            _scaleMatrix = unit.ScaleMatrix;
+
+            _vboVertices = unit._vboVertices;
+            _vboNormals = unit._vboNormals;
+            _vao = unit._vao;
+            _ebo = unit._ebo;
+        }
+
 
         /// <summary>
         /// Метод отрисовки модели
@@ -134,6 +152,11 @@ namespace GraphicLibrary.Models.Unit
             _rotationMatrix *= Matrix4.CreateRotationX(angles.X);
             _rotationMatrix *= Matrix4.CreateRotationY(angles.Y);
             _rotationMatrix *= Matrix4.CreateRotationY(angles.Z);
+        }
+
+        public object Clone()
+        {
+            return new ModelUnit(this);
         }
     }
 }

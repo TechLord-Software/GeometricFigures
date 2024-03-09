@@ -1,49 +1,26 @@
-﻿using GraphicLibrary.Models;
-using GraphicLibrary.Models.Interfaces;
-using GraphicLibrary.Models.Interfaces.Common;
+﻿using GraphicLibrary.Models.Interfaces.Common;
 using GraphicLibrary.Models.Unit;
 using GraphicLibrary.Shaders;
-using OpenTK.Mathematics;
 
 namespace GraphicLibrary.ComplexModels
 {
-    public class Model : TransformationComplexModel, IDrawable, ITransformableModel
+    public class Model : TransformableModel, IDrawable
     {
-        /// <summary>
-        /// Используемый шейдер
-        /// </summary>
-        public static Shader? Shader { get; set; }
-
-        /// <summary>
-        /// Список простых моделей
-        /// </summary>
-        public IReadOnlyList<ITransformableModelUnit> Models => models;
-
-        /// <summary>
-        /// Позиция модели
-        /// </summary>
-        public Vector3 Position => position;
-        /// <summary>
-        /// Размер модели
-        /// </summary>
-        public Size Size => size;
-        /// <summary>
-        /// Углы поворота модели
-        /// </summary>
-        public RotationAngles RotationAngles => rotationAngles;
-
-
         /// <summary>
         /// Конструктор класса Model
         /// </summary>
-        public Model()
-        {
-            models = new List<ModelUnit>();
+        public Model() : base() { }
+        /// <summary>
+        /// Конструктор класса Model, принимающиий одну простую модель
+        /// </summary>
+        /// <param name="unit"> простая модель </param>
+        public Model(ModelUnit unit) { }
+        /// <summary>
+        /// Конструктор класса Model, принимающий перечисление простых объектов
+        /// </summary>
+        /// <param name="units"> перечисление простых обюъектов </param>
+        public Model(IEnumerable<ModelUnit> units) : base(units) { }
 
-            position = Vector3.Zero;
-            size = Size.One;
-            rotationAngles = RotationAngles.Zero;
-        }
 
 
         /// <summary>
@@ -61,54 +38,15 @@ namespace GraphicLibrary.ComplexModels
             Shader.Deactivate();
         }
 
-        /// <summary>
-        /// Перемещение модели
-        /// </summary>
-        /// <param name="shifts"> вектор перемещения </param>
-        public void Move(Vector3 shifts)
-        {
-            foreach (var model in models)
-            {
-                model.Move(shifts);
-            }
-
-            position.X += shifts.X;
-            position.Y += shifts.Y;
-            position.Z += shifts.Z;
-        }
 
         /// <summary>
-        /// Поворот модели
+        /// Загрузка модели из файла с расширением .obj
         /// </summary>
-        /// <param name="angles"> углы поворота </param>
-        public void Rotate(RotationAngles angles)
+        /// <param name="path"> путь к файлу </param>
+        /// <returns> загруженная модель </returns>
+        public static Model Parse(string path)
         {
-            foreach (var model in models)
-            {
-                model.Rotate(angles);
-            }
 
-            rotationAngles.X += angles.X;
-            rotationAngles.Y += angles.Y;
-            rotationAngles.Z += angles.Z;
-
-            size.UpdateAfterRotation(angles);
-        }
-
-        /// <summary>
-        /// Масштабирование модели
-        /// </summary>
-        /// <param name="scale"> коэффициенты масштабирования </param>
-        public void Scale(Size scale)
-        {
-            foreach (var model in models)
-            {
-                model.Scale(scale);
-            }
-
-            size.X += scale.X;
-            size.Y += scale.Y;
-            size.Z += scale.Z;
         }
     }
 }
