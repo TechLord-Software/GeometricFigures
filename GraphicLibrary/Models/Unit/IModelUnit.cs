@@ -5,6 +5,7 @@ namespace GraphicLibrary.Models.Unit
 {
     public interface IModelUnit
     {
+        public string Name { get; set; }
         public Material Material { get; set; }
         public Matrix4 RotationMatrix { get; }
         public Matrix4 TranslationMatrix { get; }
