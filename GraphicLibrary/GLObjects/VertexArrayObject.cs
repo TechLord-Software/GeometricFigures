@@ -24,7 +24,7 @@ namespace GraphicLibrary.GLObjects
             Id = GL.GenVertexArray();
         }
         /// <summary>
-        /// Активация (отвязка) этого объекта
+        /// Активация (привязка) этого объекта
         /// </summary>
         public void Activate()
         {
