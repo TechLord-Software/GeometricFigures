@@ -123,20 +123,30 @@ namespace GraphicLibrary.Cameras
         }
 
 
-
+        /// <summary>
+        /// Метод обновления векторов и матриц
+        /// </summary>
         protected override void Update()
         {
+            // Преобразование сферических координат в декартовы
             position.X = R * MathF.Sin(Theta) * MathF.Cos(Phi) + Target.X;
             position.Y = R * MathF.Cos(Theta) + Target.Y;
             position.Z = R * MathF.Sin(Theta) * MathF.Sin(Phi) + Target.Z;
             
+            // Обновление единичных векторов
             Direction = Vector3.Normalize(Position - Target);
             Right = Vector3.Normalize(Vector3.Cross(Vector3.UnitY, Direction));
             Up = Vector3.Normalize(Vector3.Cross(Direction, Right));
 
+            // Обновление матриц
             ViewMatrix = Matrix4.LookAt(Position, Target, Up);
             ProjectionMatrix = Matrix4.CreatePerspectiveFieldOfView(Settings.Fov, Settings.AspectRatio, CameraSettings.DepthNear, Settings.RenderDistance);
         }
+        /// <summary>
+        /// Метод, обновляющий позицию камеры при движении мышью
+        /// </summary>
+        /// <param name="mousePosition"> позиция мыши </param>
+        /// <param name="e"> аргументы кнопки мыши </param>
         public override void OnMouseMove(MouseState mousePosition, MouseButtonEventArgs e)
         {
             if (!e.IsPressed) return;
@@ -146,21 +156,31 @@ namespace GraphicLibrary.Cameras
 
             if (e.Button == MouseButton.Left)
             {
+                // Изменение углов тета и фи (перемещение камеры)
                 Phi += dx * Settings.MouseSensitivity;
                 Theta -= dy * Settings.MouseSensitivity;
             }
             else if (e.Button == MouseButton.Middle)
             {
+                // Изменение точки фокусировки камеры (перемещение центра сферы и изменение позиции камеры)
                 Target -= dx * Settings.MouseSensitivity * Right;
                 Target += dy * Settings.MouseSensitivity * Up;
                 position -= dx * Settings.MouseSensitivity * Right;
                 position += dy * Settings.MouseSensitivity * Up;
             }
         }
+        /// <summary>
+        /// Метод обработки нажатия кнопки
+        /// </summary>
+        /// <param name="input"> состояние клавиатуры </param>
         public override void OnKeyDown(KeyboardState input)
         {
             return;
         }
+        /// <summary>
+        /// Метод обработки вращения колесика мыши
+        /// </summary>
+        /// <param name="offset"> смещение колесика мыши </param>
         public override void OnMouseScroll(float offset)
         {
             R -= offset * Settings.WheelSensitivity;

@@ -20,20 +20,19 @@ struct LightSource {
     vec3 specular;
 };
 
-const int maxLightSources = 16;
-
+const int maxLightSources = 32;
 
 in vec3 Normal;
 in vec3 Position;
 
-
-uniform int lightSourceCount;
-uniform vec3 color;
 uniform vec3 cameraPosition;
 uniform Material material;
+uniform int lightSourceCount;
 uniform LightSource lights[maxLightSources];
 
 out vec4 outColor;
+
+
 
 vec3 calculateLight(LightSource light, vec3 normal, vec3 position, vec3 viewDirection);
 

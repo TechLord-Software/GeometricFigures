@@ -9,21 +9,21 @@ namespace GraphicLibrary.Shaders
     public class Shader
     {
         /// <summary>
-        /// Путь к вершинному шейдеру для объектов
+        /// Путь к вершинному шейдеру для объектов, реагирующих на свет
         /// </summary>
-        private const string COLOR_VERTEX_PATH = @"Shaders\Data\color.vert";
+        private const string LIGHTED_VERTEX_PATH = @"Shaders\Data\lighted.vert";
         /// <summary>
-        /// Путь к фрагментному шейдеру для объектов
+        /// Путь к фрагментному шейдеру для объектов, реагирующих на свет
         /// </summary>
-        private const string COLOR_FRAGMENT_PATH = @"Shaders\Data\color.frag";
+        private const string LIGHTED_FRAGMENT_PATH = @"Shaders\Data\lighted.frag";
         /// <summary>
-        /// Путь к вершинному шейдеру для источников освещения
+        /// Путь к вершинному шейдеру для объектов, не реагирующих на свет
         /// </summary>
-        private const string LIGHT_VERTEX_PATH = @"Shaders\Data\light.vert";
+        private const string UNLIGHTED_VERTEX_PATH = @"Shaders\Data\unlighted.vert";
         /// <summary>
-        /// Путь к фрагментному шейдеру для источников освещения
+        /// Путь к фрагментному шейдеру для объектов, не реагирующих на свет
         /// </summary>
-        private const string LIGHT_FRAGMENT_PATH = @"Shaders\Data\light.frag";
+        private const string UNLIGHTED_FRAGMENT_PATH = @"Shaders\Data\unlighted.frag";
         /// <summary>
         /// Значения для деактивации шейдерной программы
         /// </summary>

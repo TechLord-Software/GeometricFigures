@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 
 namespace GraphicLibrary.ComplexModels
 {
+    /// <summary>
+    /// Класс комплексной модели
+    /// </summary>
     public class Model : TransformableModel, IDrawable
     {
         /// <summary>

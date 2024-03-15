@@ -15,7 +15,7 @@ namespace GraphicLibrary.ComplexModels
         /// <summary>
         /// Список простых моделей
         /// </summary>
-        public new IReadOnlyList<ITransformableModelUnit> Models => models;
+        public new IReadOnlyList<TransformableModelUnit> Models => models;
 
 
         /// <summary>
