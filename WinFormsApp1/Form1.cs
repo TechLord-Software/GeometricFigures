@@ -1,71 +1,93 @@
+using Microsoft.VisualBasic.ApplicationServices;
+
 namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
-        Image card;
-        Point position = new Point(400, 400);
+        Image currentGeo;
+        Point currentPosition = new Point(400, 400);
         bool dragging;
-        Rectangle rect;
-        int height = 200, width = 200;
+        Rectangle currentRect;
+        int height = 100, width = 100;
 
 
         public Form1()
         {
-            InitializeComponent();
-
-            card = Image.FromFile("Triangle.png");
-            rect = new Rectangle(position.X, position.Y, width, height);
+            InitializeComponent();    
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             Point mousePosition = new Point(e.X, e.Y);
-            if (rect.Contains(mousePosition))
-            {
-                dragging = true;                
+            if (currentRect.Contains(mousePosition))
+            { 
+                    currentRect = new Rectangle(currentPosition.X, currentPosition.Y, width, height);
+                    dragging = true;
             }
+            
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            if(dragging)
+            if (dragging)
             {
-                position.X = e.X - (width / 2);
-                position.Y = e.Y - (height / 2);
+                currentPosition.X = e.X - (width / 2);
+                currentPosition.Y = e.Y - (height / 2);
             }
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            if(dragging)
+            if (dragging)
             {
                 dragging = false;
-                rect.Location = new Point(e.X, e.Y);
+                currentRect.Location = new Point(e.X, e.Y);                
             }
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            /*Pen outline;
-            if(dragging)
+            if (currentGeo != null)
             {
-                outline = new Pen(Color.Yellow, 6);
-            }
-            else
-            {
-                outline = new Pen(Color.Plum, 6);
-            }
+                e.Graphics.DrawImage(currentGeo, currentPosition.X, currentPosition.Y, width, height);
 
-            e.Graphics.DrawRectangle(outline, rect);*/
-            e.Graphics.DrawImage(card, position.X, position.Y, width, height);
+            }
         }
 
         private void FormTimer_Tick(object sender, EventArgs e)
         {
-            rect.X = position.X;
-            rect.Y = position.Y;
+            currentRect.X = currentPosition.X;
+            currentRect.Y = currentPosition.Y;
 
             this.Invalidate();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            currentPosition = new Point(400, 400);
+            currentGeo = pictureBox1.BackgroundImage;
+            currentRect = new Rectangle(currentPosition.X, currentPosition.Y, width, height);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            currentPosition = new Point(400, 400);
+            currentGeo = pictureBox2.BackgroundImage;
+            currentRect = new Rectangle(currentPosition.X, currentPosition.Y, width, height);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            currentPosition = new Point(400, 400);
+            currentGeo = pictureBox3.BackgroundImage;
+            currentRect = new Rectangle(currentPosition.X, currentPosition.Y, width, height);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            currentPosition = new Point(400, 400);
+            currentGeo = pictureBox4.BackgroundImage;
+            currentRect = new Rectangle(currentPosition.X, currentPosition.Y, width, height);
         }
     }
 }
