@@ -37,6 +37,9 @@ namespace GraphicLibrary.LightSources
         public LightSource(PhongModel phongParameters, LightAttenuationParameters lightAttenuationParameters)
             : base(phongParameters, lightAttenuationParameters)
         {
+            if (_lightSources.Count == MaxLightSourses) 
+                throw new InvalidOperationException("Достигнуто максимальное количество источников освещения");
+
             _lightSources.Add(this);
         }
         /// <summary>
@@ -48,6 +51,9 @@ namespace GraphicLibrary.LightSources
         protected LightSource(PhongModel phongParameters, LightAttenuationParameters attenuation, ModelUnit unit)
             : base(phongParameters, attenuation, unit)
         {
+            if (_lightSources.Count == MaxLightSourses)
+                throw new InvalidOperationException("Достигнуто максимальное количество источников освещения");
+
             _lightSources.Add(this);
         }
         /// <summary>
@@ -59,6 +65,9 @@ namespace GraphicLibrary.LightSources
         protected LightSource(PhongModel phongParameters, LightAttenuationParameters attenuation, IEnumerable<ModelUnit> units)
             : base(phongParameters, attenuation, units)
         {
+            if (_lightSources.Count == MaxLightSourses)
+                throw new InvalidOperationException("Достигнуто максимальное количество источников освещения");
+
             _lightSources.Add(this);
         }
 

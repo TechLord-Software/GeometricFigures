@@ -12,6 +12,12 @@ namespace GraphicLibrary.LightSources
     public abstract class StaticLightSource : TransformationInfoComplexModel, IStaticComponents
     {
         /// <summary>
+        /// Максимальное количество источников освещения
+        /// </summary>
+        public const int MaxLightSourses = 32;
+
+
+        /// <summary>
         /// Структура, содержащая компоненты для затенения по Фонгу
         /// </summary>
         public PhongModel PhongParameters;
@@ -24,7 +30,7 @@ namespace GraphicLibrary.LightSources
         /// <summary>
         /// Список простых моделей
         /// </summary>
-        public IReadOnlyList<IModelUnit> Models => models;
+        public IReadOnlyList<StaticModelUnit> Models => models;
         /// <summary>
         /// Используемый шейдер
         /// </summary>

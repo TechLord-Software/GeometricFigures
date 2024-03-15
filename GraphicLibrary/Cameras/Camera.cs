@@ -12,8 +12,6 @@ namespace GraphicLibrary.Cameras
     /// </summary>
     public abstract class Camera : ComplexModel
     {
-        
-
         /// <summary>
         /// Матрица преобразования камеры
         /// </summary>
@@ -46,7 +44,7 @@ namespace GraphicLibrary.Cameras
         /// <summary>
         /// Список простых моделей
         /// </summary>
-        public IReadOnlyList<IModelUnit> Models => models;
+        public IReadOnlyList<StaticModelUnit> Models => models;
         /// <summary>
         /// Направление камеры
         /// </summary>

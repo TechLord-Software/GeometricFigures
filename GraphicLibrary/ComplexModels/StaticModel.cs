@@ -5,6 +5,9 @@ using GraphicLibrary.Shaders;
 
 namespace GraphicLibrary.ComplexModels
 {
+    /// <summary>
+    /// Класс, описывающий характеристики комплексной модели
+    /// </summary>
     public abstract class StaticModel : TransformationInfoComplexModel, IStaticComponents
     {
         /// <summary>
@@ -15,7 +18,7 @@ namespace GraphicLibrary.ComplexModels
         /// <summary>
         /// Список простых моделей
         /// </summary>
-        public IReadOnlyList<IModelUnit> Models => models;
+        public IReadOnlyList<StaticModelUnit> Models => models;
 
 
 
