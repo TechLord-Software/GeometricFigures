@@ -53,10 +53,10 @@
     <None Update="ComplexModels\Figures\Octahedron.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="ComplexModels\Figures\Sphere.mtl">
+    <None Update="ComplexModels\Figures\Sphere1.mtl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="ComplexModels\Figures\Sphere.obj">
+    <None Update="ComplexModels\Figures\Sphere1.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ComplexModels\Figures\square.mtl">
