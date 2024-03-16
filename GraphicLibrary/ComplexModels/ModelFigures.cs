@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GraphicLibrary.ComplexModels
 {
-    public partial class ModelFigures
+    public partial class Model
     {       
         private static string circlePath = @"ComplexModels\Figures\circle.obj";
         private static string conePath = @"ComplexModels\Figures\Cone.obj";
@@ -34,6 +34,33 @@ namespace GraphicLibrary.ComplexModels
         private static Model thor = Model.Parse(thorPath);
         private static Model triangle = Model.Parse(trianglePath);
 
-        public Model Circle = circle;
+        public static Model Circle { get; }
+        public static Model Cone { get; }
+        public static Model Camera { get; }
+        public static Model Cube { get; }
+        public static Model Cylinder { get; }
+        public static Model Octahedron { get; }
+        public static Model Sphere { get; }
+        public static Model Icosahedron { get; }
+        public static Model Square { get; }
+        public static Model Tetrahedron { get; }
+        public static Model Thor { get; }
+        public static Model Triangle { get; }
+
+        static Model()
+        {
+            Circle = (Model)circle.Clone();
+            Cone = (Model)cone.Clone();
+            Camera = (Model)camera.Clone();
+            Cube = (Model)cube.Clone();
+            Cylinder = (Model)cylinder.Clone();
+            Octahedron = (Model)octahedron.Clone();
+            Sphere = (Model)sphere.Clone();
+            Icosahedron = (Model)icosahedron.Clone();
+            Square = (Model)square.Clone();
+            Tetrahedron = (Model)tetrahedron.Clone();
+            Thor = (Model)thor.Clone();
+            Triangle = (Model)triangle.Clone();
+        }
     }
 }

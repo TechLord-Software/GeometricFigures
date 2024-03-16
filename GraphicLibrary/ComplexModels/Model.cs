@@ -13,7 +13,7 @@ namespace GraphicLibrary.ComplexModels
     /// <summary>
     /// Класс комплексной модели
     /// </summary>
-    public class Model : TransformableModel, IDrawable, ICloneable
+    public partial class Model : TransformableModel, IDrawable, ICloneable
     {
         /// <summary>
         /// Конструктор класса Model
