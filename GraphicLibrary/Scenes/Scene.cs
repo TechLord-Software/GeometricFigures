@@ -16,19 +16,45 @@ namespace GraphicLibrary.Scenes
         /// </summary>
         public const int MaxLightSourses = 32;
 
-
+        /// <summary>
+        /// Цвет фона по умолчанию
+        /// </summary>
         private static readonly Vector4 DEFAULT_BACKGROUND_COLOR;
 
+        /// <summary>
+        /// Список моделей сцены
+        /// </summary>
         private List<Model> _models;
+        /// <summary>
+        /// Список источников света сцены
+        /// </summary>
         private List<LightSource> _lightSources;
+        /// <summary>
+        /// Список камер сцены
+        /// </summary>
         private List<Camera> _cameras;
-
+        /// <summary>
+        /// Текущая камера
+        /// </summary>
         private Camera _currentCamera;
-
+        /// <summary>
+        /// Шейдер для объектов класса Model
+        /// </summary>
         private Shader _modelShader;
+        /// <summary>
+        /// Шейдер для объектов класса LightSource
+        /// </summary>
         private Shader _lightSourceShader;
+        /// <summary>
+        /// Шейдер для объектов класса Camera
+        /// </summary>
         private Shader _cameraShader;
 
+
+
+        /// <summary>
+        /// Цвет фона
+        /// </summary>
         public Vector4 BackgroundColor;
 
 
@@ -39,10 +65,20 @@ namespace GraphicLibrary.Scenes
 
 
 
+        /// <summary>
+        /// Статический конструктор
+        /// </summary>
         static Scene()
         {
             DEFAULT_BACKGROUND_COLOR = new Vector4(0.8f, 0.8f, 0.8f, 1f);
         }
+        /// <summary>
+        /// Конструктор сцены
+        /// </summary>
+        /// <param name="gameSettings"> настройки класса GameWindow </param>
+        /// <param name="nativeSettings"> настройки класса NativeWindow </param>
+        /// <param name="camera"> камера </param>
+        /// <param name="backgroundColor"> цвет фона </param>
         public Scene(GameWindowSettings gameSettings, NativeWindowSettings nativeSettings, Camera camera, Vector4 backgroundColor) 
             : base(gameSettings, nativeSettings)
         {
@@ -55,12 +91,14 @@ namespace GraphicLibrary.Scenes
             BackgroundColor = backgroundColor;
             OnCameraChanged(camera);
         }
-
         public Scene(GameWindowSettings gameSettings, NativeWindowSettings nativeSettings, Camera camera)
             : this(gameSettings, nativeSettings, camera, DEFAULT_BACKGROUND_COLOR) { }
         public Scene(GameWindowSettings gameSettings, NativeWindowSettings nativeSettings)
             : this(gameSettings, nativeSettings, Camera.Default) { }
 
+        /// <summary>
+        /// Установка настроек
+        /// </summary>
         protected override void OnLoad()
         {
             base.OnLoad();
@@ -70,6 +108,10 @@ namespace GraphicLibrary.Scenes
             GL.PolygonMode(MaterialFace.Front, PolygonMode.Fill);
             GL.PolygonMode(MaterialFace.Back, PolygonMode.Line);       
         }
+        /// <summary>
+        /// Метод, в котором происходит отрисовка моделей
+        /// </summary>
+        /// <param name="args"> аргументы кадра </param>
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             base.OnRenderFrame(args);

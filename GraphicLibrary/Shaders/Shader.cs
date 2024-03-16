@@ -76,9 +76,17 @@ namespace GraphicLibrary.Shaders
         /// </summary>
         private int _program;
 
-        
+        /// <summary>
+        /// Использование камеры в шейдере 
+        /// </summary>
         private Action<Shader, InformationCamera>? CameraUsage { get; init; }
+        /// <summary>
+        /// Использование простой модели в шейдере 
+        /// </summary>
         private Action<Shader, ModelUnit>? ModelUnitUsage { get; init; }
+        /// <summary>
+        /// Использование списка источников света в шейдере 
+        /// </summary>
         private Action<Shader, IReadOnlyList<InformationLightSource>>? SceneLightSourceUsage { get; init; }
 
 
@@ -294,14 +302,26 @@ namespace GraphicLibrary.Shaders
             int location = GL.GetUniformLocation(_program, name);
             GL.Uniform4(location, ref data);
         }
+        /// <summary>
+        /// Использование камеры в шейдере
+        /// </summary>
+        /// <param name="camera"> камера </param>
         public void UseCamera(InformationCamera camera)
         {
             CameraUsage?.Invoke(this, camera);
         }
+        /// <summary>
+        /// Использование простой модели в шейдереы
+        /// </summary>
+        /// <param name="unit"> простая модель </param>
         public void UseModelUnit(ModelUnit unit)
         {
             ModelUnitUsage?.Invoke(this, unit);
         }
+        /// <summary>
+        /// Использование списка источников света в шейдере
+        /// </summary>
+        /// <param name="lightSources"> список источнииков света </param>
         public void UseLightSources(IReadOnlyList<InformationLightSource> lightSources)
         {
             SceneLightSourceUsage?.Invoke(this, lightSources);
