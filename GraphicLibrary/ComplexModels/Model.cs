@@ -146,7 +146,7 @@ namespace GraphicLibrary.ComplexModels
         {
             List<ObjFileData> modelsData = new List<ObjFileData>();
             ObjFileData obj = new ObjFileData();
-            Regex regex = new Regex(@"\s+");  
+            Regex regex = new Regex(@"\s+");
             string? mtlFilePath = null;
             string? line;
             bool first = true;

@@ -1,4 +1,5 @@
-﻿using GraphicLibrary.GLObjects;
+﻿using GraphicLibrary.ComplexModels;
+using GraphicLibrary.GLObjects;
 using GraphicLibrary.Materials;
 using GraphicLibrary.Models.Interfaces.Common;
 using GraphicLibrary.Scenes;
@@ -179,6 +180,6 @@ namespace GraphicLibrary.Models.Unit
             return new ModelUnit(vertices.ToArray(), textures.ToArray(), 
                 normals.ToArray(), indices.ToArray(), 
                 material, objData.Name ?? DEFAULT_NAME);
-        }
+        }       
     }
 }
