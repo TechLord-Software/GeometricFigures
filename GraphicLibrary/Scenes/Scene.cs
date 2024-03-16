@@ -11,6 +11,7 @@ namespace GraphicLibrary.Scenes
 {
     public class Scene : GameWindow
     {
+        public static readonly Scene Default;
         /// <summary>
         /// Максимальное количество источников освещения в сцене
         /// </summary>
@@ -71,6 +72,69 @@ namespace GraphicLibrary.Scenes
         static Scene()
         {
             DEFAULT_BACKGROUND_COLOR = new Vector4(0.8f, 0.8f, 0.8f, 1f);
+
+            var nativeWindowSettings = new NativeWindowSettings()
+            {
+                Profile = ContextProfile.Compatability,
+                Size = new Vector2i(900, 900),
+            };
+            Vector4 backgroundColor = new Vector4(0.2f, 0.2f, 0.2f, 1f);
+            Default = new Scene(GameWindowSettings.Default, nativeWindowSettings, Camera.Default, backgroundColor);
+
+            Model tetrahedron = Model.Tetrahedron;
+            Model cube = Model.Cube;
+            Model icosahedron = Model.Icosahedron;
+            Model octahedron = Model.Octahedron;
+            Model sphere = Model.Sphere;
+            Model thor = Model.Thor;
+
+            tetrahedron.Move(Vector3.UnitX * 3);
+            cube.Move(Vector3.UnitX * 6);
+            icosahedron.Move(Vector3.UnitX * 9);
+            icosahedron.Move(Vector3.UnitX * 12);
+            sphere.Move(Vector3.UnitX * 15);
+            thor.Move(Vector3.UnitX * 18);
+
+            Default.AddModel(tetrahedron);
+            Default.AddModel(cube);
+            Default.AddModel(octahedron);
+            Default.AddModel(sphere);
+            Default.AddModel(thor);
+
+            LightSource tetrahedronLight = LightSource.Default;
+            LightSource cubeLight = LightSource.Default;
+            LightSource icosahedronLight = LightSource.Default;
+            LightSource octahedronLight = LightSource.Default;
+            LightSource sphereLight = LightSource.Default;
+            LightSource thorLight = LightSource.Default;
+
+            tetrahedronLight.Move(Vector3.UnitX * 3);
+            cubeLight.Move(Vector3.UnitX * 6);
+            icosahedron.Move(Vector3.UnitX * 9);
+            octahedronLight.Move(Vector3.UnitX * 12);
+            sphereLight.Move(Vector3.UnitX * 15);
+            thorLight.Move(Vector3.UnitX * 18);
+
+            tetrahedronLight.Move(Vector3.UnitY * 3);
+            cubeLight.Move(Vector3.UnitY * 3);
+            icosahedronLight.Move(Vector3.UnitY * 3);
+            octahedronLight.Move(Vector3.UnitY * 3);
+            sphereLight.Move(Vector3.UnitY * 3);
+            thorLight.Move(Vector3.UnitY * 3);
+
+            tetrahedronLight.Move(Vector3.UnitZ * 3);
+            cubeLight.Move(Vector3.UnitZ * 3);
+            icosahedronLight.Move(Vector3.UnitZ * 3);
+            octahedronLight.Move(Vector3.UnitZ * 3);
+            sphereLight.Move(Vector3.UnitZ * 3);
+            thorLight.Move(Vector3.UnitZ * 3);
+
+            Default.AddLightSource(tetrahedronLight);
+            Default.AddLightSource(cubeLight);
+            Default.AddLightSource(icosahedronLight);
+            Default.AddLightSource(octahedronLight);
+            Default.AddLightSource(sphereLight);
+            Default.AddLightSource(thorLight);        
         }
         /// <summary>
         /// Конструктор сцены
