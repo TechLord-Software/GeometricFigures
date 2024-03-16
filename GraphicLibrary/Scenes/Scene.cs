@@ -6,6 +6,8 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Graphics.OpenGL4;
 using GraphicLibrary.Shaders;
+using GraphicLibrary.Materials;
+using GraphicLibrary.Models.Information;
 
 namespace GraphicLibrary.Scenes
 {
@@ -88,12 +90,36 @@ namespace GraphicLibrary.Scenes
             Model sphere = Model.Sphere;
             Model thor = Model.Thor;
 
-            tetrahedron.Move(Vector3.UnitX * 3);
-            cube.Move(Vector3.UnitX * 6);
-            icosahedron.Move(Vector3.UnitX * 9);
-            icosahedron.Move(Vector3.UnitX * 12);
-            sphere.Move(Vector3.UnitX * 15);
-            thor.Move(Vector3.UnitX * 18);
+            tetrahedron.Models[0].Material.PhongParameters.Shininess = 750;
+            cube.Models[0].Material.PhongParameters.Shininess = 750;
+            icosahedron.Models[0].Material.PhongParameters.Shininess = 750;
+            octahedron.Models[0].Material.PhongParameters.Shininess = 750;
+            sphere.Models[0].Material.PhongParameters.Shininess = 750;
+            thor.Models[0].Material.PhongParameters.Shininess = 750;
+
+            Vector3 spec = new Vector3(1, 1, 1);
+            tetrahedron.Models[0].Material.PhongParameters.Specular = spec;
+            cube.Models[0].Material.PhongParameters.Specular = spec;
+            icosahedron.Models[0].Material.PhongParameters.Specular = spec;
+            octahedron.Models[0].Material.PhongParameters.Specular = spec;
+            sphere.Models[0].Material.PhongParameters.Specular = spec;
+            thor.Models[0].Material.PhongParameters.Specular = spec;
+
+
+            tetrahedron.Scale(new Size(5, 5, 5));
+            cube.Scale(new Size(5, 5, 5));
+            icosahedron.Scale(new Size(5, 5, 5));
+            octahedron.Scale(new Size(5, 5, 5));
+            sphere.Scale(new Size(5, 5, 5));
+            thor.Scale(new Size(5, 5, 5));
+
+
+            tetrahedron.Move(Vector3.UnitX * 3 * 5);
+            cube.Move(Vector3.UnitX * 6 * 5);
+            icosahedron.Move(Vector3.UnitX * 9 * 5);
+            octahedron.Move(Vector3.UnitX * 12 * 5);
+            sphere.Move(Vector3.UnitX * 15 * 5);
+            thor.Move(Vector3.UnitX * 18 * 5);
 
             Default.AddModel(tetrahedron);
             Default.AddModel(cube);
@@ -108,19 +134,32 @@ namespace GraphicLibrary.Scenes
             LightSource sphereLight = LightSource.Default;
             LightSource thorLight = LightSource.Default;
 
-            tetrahedronLight.Move(Vector3.UnitX * 3);
-            cubeLight.Move(Vector3.UnitX * 6);
-            icosahedron.Move(Vector3.UnitX * 9);
-            octahedronLight.Move(Vector3.UnitX * 12);
-            sphereLight.Move(Vector3.UnitX * 15);
-            thorLight.Move(Vector3.UnitX * 18);
+            Vector3 ambient = new Vector3(1, 0.5f, 0.5f);
+            Vector3 diffuse = new Vector3(1, 0.8f, 0.7f);
+            Vector3 specular = new Vector3(0.9f, 0.9f, 0.9f);
+            float shininnes = 500;
+            PhongModel phong = new PhongModel(ambient, diffuse, specular, shininnes);
 
-            tetrahedronLight.Move(Vector3.UnitY * 3);
-            cubeLight.Move(Vector3.UnitY * 3);
-            icosahedronLight.Move(Vector3.UnitY * 3);
-            octahedronLight.Move(Vector3.UnitY * 3);
-            sphereLight.Move(Vector3.UnitY * 3);
-            thorLight.Move(Vector3.UnitY * 3);
+            tetrahedronLight.PhongParameters = phong;
+            cubeLight.PhongParameters = phong;
+            icosahedronLight.PhongParameters = phong;
+            octahedronLight.PhongParameters = phong;
+            sphereLight.PhongParameters = phong;
+            thorLight.PhongParameters = phong;
+
+            tetrahedronLight.Move(Vector3.UnitX * 3 * 5);
+            cubeLight.Move(Vector3.UnitX * 6 * 5);
+            icosahedron.Move(Vector3.UnitX * 9 * 5);
+            octahedronLight.Move(Vector3.UnitX * 12 * 5);
+            sphereLight.Move(Vector3.UnitX * 15 * 5);
+            thorLight.Move(Vector3.UnitX * 18 * 5);
+
+            tetrahedronLight.Move(Vector3.UnitY * 2 * 5);
+            cubeLight.Move(Vector3.UnitY * 2 * 5);
+            icosahedronLight.Move(Vector3.UnitY * 2 * 5);
+            octahedronLight.Move(Vector3.UnitY * 2 * 5);
+            sphereLight.Move(Vector3.UnitY * 2 * 5);
+            thorLight.Move(Vector3.UnitY * 2 * 5);
 
             tetrahedronLight.Move(Vector3.UnitZ * 3);
             cubeLight.Move(Vector3.UnitZ * 3);
@@ -134,7 +173,7 @@ namespace GraphicLibrary.Scenes
             Default.AddLightSource(icosahedronLight);
             Default.AddLightSource(octahedronLight);
             Default.AddLightSource(sphereLight);
-            Default.AddLightSource(thorLight);        
+            Default.AddLightSource(thorLight);
         }
         /// <summary>
         /// Конструктор сцены

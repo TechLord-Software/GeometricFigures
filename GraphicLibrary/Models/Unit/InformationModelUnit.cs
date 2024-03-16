@@ -47,7 +47,7 @@ namespace GraphicLibrary.Models.Unit
         /// <summary>
         /// Матрица преобразования
         /// </summary>
-        public Matrix4 ModelMatrix => translationMatrix * scaleMatrix * rotationMatrix;
+        public Matrix4 ModelMatrix =>  rotationMatrix * scaleMatrix * translationMatrix;
 
 
 
