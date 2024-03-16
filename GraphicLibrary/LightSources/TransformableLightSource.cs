@@ -7,7 +7,7 @@ using OpenTK.Mathematics;
 
 namespace GraphicLibrary.LightSources
 {
-    public abstract class TransformableLightSource : StaticLightSource, IDynamicComponents, ITransformable
+    public abstract class TransformableLightSource : InformationLightSource, ITransformableComponents, ITransformable
     {
         /// <summary>
         /// Список простых моделей

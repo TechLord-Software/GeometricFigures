@@ -6,7 +6,7 @@ namespace GraphicLibrary.Models.Unit
     /// <summary>
     /// Абстрактный класс, описывающий свойства модели
     /// </summary>
-    public abstract class StaticModelUnit
+    public abstract class InformationModelUnit
     {
         /// <summary>
         /// Имя по умолчанию
@@ -56,7 +56,7 @@ namespace GraphicLibrary.Models.Unit
         /// </summary>
         /// <param name="name"> имя модели </param>
         /// <param name="material"> материал модели </param>
-        protected StaticModelUnit(string name, Material material)
+        protected InformationModelUnit(string name, Material material)
         {
             Name = name;
             Material = material;
@@ -65,11 +65,11 @@ namespace GraphicLibrary.Models.Unit
             translationMatrix = Matrix4.Identity;
             scaleMatrix = Matrix4.Identity;
         }
-        protected StaticModelUnit(string name) 
+        protected InformationModelUnit(string name) 
             : this(name, Material.Default) { }
-        protected StaticModelUnit(Material material) 
+        protected InformationModelUnit(Material material) 
             : this(DEFAULT_NAME, material) { }
-        protected StaticModelUnit() 
+        protected InformationModelUnit() 
             : this(DEFAULT_NAME) { }
     }
 }

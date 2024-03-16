@@ -1,6 +1,8 @@
-﻿using GraphicLibrary.Materials;
+﻿using GraphicLibrary.Cameras;
+using GraphicLibrary.Materials;
 using GraphicLibrary.Models.Interfaces.Common;
 using GraphicLibrary.Models.Unit;
+using GraphicLibrary.Scenes;
 using GraphicLibrary.Shaders;
 using OpenTK.Mathematics;
 using System.Globalization;
@@ -11,7 +13,7 @@ namespace GraphicLibrary.ComplexModels
     /// <summary>
     /// Класс комплексной модели
     /// </summary>
-    public class Model : TransformableModel, IDrawable
+    public class Model : TransformableModel, IDrawable, ICloneable
     {
         /// <summary>
         /// Конструктор класса Model
@@ -21,28 +23,37 @@ namespace GraphicLibrary.ComplexModels
         /// Конструктор класса Model, принимающиий одну простую модель
         /// </summary>
         /// <param name="unit"> простая модель </param>
-        public Model(ModelUnit unit) { }
+        public Model(ModelUnit unit) : base(unit) { }
         /// <summary>
         /// Конструктор класса Model, принимающий перечисление простых объектов
         /// </summary>
-        /// <param name="units"> перечисление простых обюъектов </param>
+        /// <param name="units"> перечисление простых объектов </param>
         public Model(IEnumerable<ModelUnit> units) : base(units) { }
 
 
 
         /// <summary>
-        /// Отрисовка модели (всех ее составных частей)
+        /// Метод отрисовки модели
         /// </summary>
-        public void Draw()
+        /// <param name="shader"> шейдер </param>
+        /// <param name="scene"> текущая сцена </param>
+        public void Draw(Shader shader, Scene scene)
         {
-            if (Shader == null) return;
-
-            Shader.Activate();
+            shader.UseLightSources(scene.LightSources);
+            shader.UseCamera(scene.CurrentCamera);
             foreach (var model in models)
             {
-                model.Draw();
+                model.Draw(shader, scene);
             }
-            Shader.Deactivate();
+        }
+
+        /// <summary>
+        /// Копирование объекта
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            return new Model(models);
         }
 
 
@@ -208,10 +219,14 @@ namespace GraphicLibrary.ComplexModels
                     }    
                     else if (line.StartsWith("f "))
                     {
-                        int x = int.Parse(tokens[1]) - 1;
-                        int y = int.Parse(tokens[2]) - 1;
-                        int z = int.Parse(tokens[3]) - 1;
-                        obj.Faces.Add(new Vector3i(x, y, z));
+                        for (int i = 1; i < tokens.Length; i++)
+                        {
+                            string[] fTokens = tokens[i].Split('/');
+                            int x = int.Parse(fTokens[0]) - 1;
+                            int y = int.Parse(fTokens[1]) - 1;
+                            int z = int.Parse(fTokens[2]) - 1;
+                            obj.Faces.Add(new Vector3i(x, y, z));
+                        } 
                     }
                 }
             }
@@ -221,6 +236,6 @@ namespace GraphicLibrary.ComplexModels
                 throw new InvalidDataException("В файле не указан путь к файлу .mtl");
 
             return (modelsData.ToArray(), mtlFilePath);
-        }       
+        }
     }
 }

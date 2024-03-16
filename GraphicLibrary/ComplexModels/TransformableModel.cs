@@ -10,7 +10,7 @@ namespace GraphicLibrary.ComplexModels
     /// Абстрактный класс, реализующий методы перемещения, вращения и масштабирования, 
     /// а также доступ к подобным методам у простых моделей, входящих в объект этого типа
     /// </summary>
-    public abstract class TransformableModel : StaticModel, IDynamicComponents, ITransformable
+    public abstract class TransformableModel : InformationModel, ITransformableComponents, ITransformable
     {
         /// <summary>
         /// Список простых моделей

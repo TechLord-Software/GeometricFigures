@@ -32,6 +32,10 @@ namespace GraphicLibrary.Cameras.Settings
         /// </summary>
         private const float MIN_RENDER_DISTANCE = 10f;
         /// <summary>
+        /// Расстояние до дальней плоскости отсечения по умолчанию
+        /// </summary>
+        private const float DEFAULT_RENDER_DISTANCE = 1000f;
+        /// <summary>
         /// Минимальная чувствительность мыши
         /// </summary>
         private const float MIN_MOUSE_SENSITIVITY = 0.01f;
@@ -42,19 +46,19 @@ namespace GraphicLibrary.Cameras.Settings
         /// <summary>
         /// Чувствительность мыши по умолчанию
         /// </summary>
-        private const float DEFAULT_MOUSE_SENSITIVITY = 0.3f;
+        private const float DEFAULT_MOUSE_SENSITIVITY = 0.05f;
         /// <summary>
         /// Минимальная чувствительность колесика мыши
         /// </summary>
-        private const float MIN_WHEEL_SENSITIVITY = 1f;
+        private const float MIN_WHEEL_SENSITIVITY = 0.1f;
         /// <summary>
         /// Максимальная чувствительность колесика мыши
         /// </summary>
-        private const float MAX_WHEEL_SENSITIVITY = 100f;
+        private const float MAX_WHEEL_SENSITIVITY = 50f;
         /// <summary>
         /// Чувствительность колесика мыши по умолчанию
         /// </summary>
-        private const float DEFAULT_WHEEL_SENSITIVITY = 25f;
+        private const float DEFAULT_WHEEL_SENSITIVITY = 1f;
         /// <summary>
         /// Тип курсора по умолчанию
         /// </summary>
@@ -142,6 +146,8 @@ namespace GraphicLibrary.Cameras.Settings
         public CameraSettings(float renderDistance, float aspectRatio)
             : this(renderDistance, aspectRatio, DEFAULT_FOV) { }
         public CameraSettings(float renderDistance)
-            :this(renderDistance, DEFAULT_ASPECT_RATIO) { }
+            : this(renderDistance, DEFAULT_ASPECT_RATIO) { }
+        public CameraSettings()
+            : this(DEFAULT_RENDER_DISTANCE) { }
     }
 }

@@ -8,7 +8,7 @@ namespace GraphicLibrary.Models.Unit
     /// <summary>
     /// Абстрактный класс, описывающий перемещение, вращение и масштабирование модели
     /// </summary>
-    public abstract class TransformableModelUnit : StaticModelUnit, ITransformable
+    public abstract class TransformableModelUnit : InformationModelUnit, ITransformable
     {
         /// <summary>
         /// Конструктор класса TransformableModelUnit

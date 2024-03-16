@@ -1,8 +1,9 @@
 ﻿using GraphicLibrary.Cameras.Settings;
 using GraphicLibrary.Models.Interfaces.Common;
 using GraphicLibrary.Models.Unit;
+using GraphicLibrary.Scenes;
+using GraphicLibrary.Shaders;
 using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace GraphicLibrary.Cameras
@@ -10,59 +11,12 @@ namespace GraphicLibrary.Cameras
     /// <summary>
     /// Абстрактный класс камеры
     /// </summary>
-    public abstract class Camera : ComplexModel
+    public abstract class Camera : InformationCamera, IDrawable
     {
         /// <summary>
-        /// Матрица преобразования камеры
+        /// Камера по умолчанию
         /// </summary>
-        private Matrix4 _viewMatrix;
-        /// <summary>
-        /// Матрица проекции
-        /// </summary>
-        private Matrix4 _projectionMatrix;
-
-
-        /// <summary>
-        /// Настройки камеры
-        /// </summary>
-        public CameraSettings Settings;
-
-
-        public Matrix4 ViewMatrix
-        {
-            get => _viewMatrix;
-            protected set => _viewMatrix = value;
-        }
-        public Matrix4 ProjectionMatrix
-        {
-            get => _projectionMatrix;
-            protected set => _projectionMatrix = value;
-        }
-
-
-        
-        /// <summary>
-        /// Список простых моделей
-        /// </summary>
-        public IReadOnlyList<StaticModelUnit> Models => models;
-        /// <summary>
-        /// Направление камеры
-        /// </summary>
-        public Vector3 Direction { get; protected set; }
-        /// <summary>
-        /// Вектор, на конец которого направлена камера
-        /// </summary>
-        public Vector3 Target { get; protected set; }
-        /// <summary>
-        /// Вертикальный вектор камеры
-        /// </summary>
-        public Vector3 Up { get; protected set; }
-        /// <summary>
-        /// Правый вектор камеры
-        /// </summary>
-        public Vector3 Right { get; protected set; }
-
-        
+        public static Camera Default => ScsCamera.Default;
 
 
         /// <summary>
@@ -72,13 +26,7 @@ namespace GraphicLibrary.Cameras
         /// <param name="target"> координаты цели, куда направлена камера </param>
         /// <param name="settings"> настройки камеры </param>
         public Camera(Vector3 position, Vector3 target, CameraSettings settings)
-            : base()
-        {
-            Initialize(position, target, settings);
-        }
-
-
-
+            : base(position, target, settings) { }
         /// <summary>
         /// Конструктор класса Camera, с передачей простой модели
         /// </summary>
@@ -87,13 +35,7 @@ namespace GraphicLibrary.Cameras
         /// <param name="settings"> настройки камеры </param>
         /// <param name="unit"> простая модель </param>
         public Camera(Vector3 position, Vector3 target, CameraSettings settings, ModelUnit unit)
-            : base(unit)
-        {
-            Initialize(position, target, settings);
-        }
-
-
-
+            : base(position, target, settings, unit) { }
         /// <summary>
         /// Конструктор класса Camera, с передачей перечисления простых моделей
         /// </summary>
@@ -102,44 +44,50 @@ namespace GraphicLibrary.Cameras
         /// <param name="settings"> настройки камеры </param>
         /// <param name="units"> перечисление простых моделей </param>
         public Camera(Vector3 position, Vector3 target, CameraSettings settings, IEnumerable<ModelUnit> units)
-            : base(units)
-        {
-            Initialize(position, target, settings);
-        }
+            : base(position, target, settings, units) { }
 
 
 
-        /// <summary>
-        /// Метод инициализации полей и автосвойств класса
-        /// </summary>
-        /// <param name="position"> кооринаты камеры </param>
-        /// <param name="target"> координаты цели, куда направлена камера </param>
-        /// <param name="settings"> настройки камеры </param>
-        private void Initialize(Vector3 position, Vector3 target, CameraSettings settings)
-        {
-            base.position = position;
-            Target = target;
-            Settings = settings;
-        }
-        /// <summary>
-        /// Обновление векторов и матриц
-        /// </summary>
-        protected abstract void Update();
+
         /// <summary>
         /// Метод обработки перемещения мыши
         /// </summary>
-        /// <param name="mousePosition"> позиция мыши </param>
-        /// <param name="e"> аргументы кнопки мыши </param>
-        public abstract void OnMouseMove(MouseState mousePosition, MouseButtonEventArgs e);
+        /// <param name="mouse"> мышь </param>
+        public abstract void OnMouseMove(MouseState mouse);
+        /// <summary>
+        /// Метод обработки нажатия клавиш мыши
+        /// </summary>
+        /// <param name="mouse"> мышь </param>
+        public abstract void OnMouseDown(MouseState mouse);
+        /// <summary>
+        /// Метод обработки нажатия клавиш мыши
+        /// </summary>
+        /// <param name="mouse"> мышь </param>
+        public abstract void OnMouseUp(MouseState mouse);
         /// <summary>
         /// Метод обработки нажатия кнопки
         /// </summary>
         /// <param name="input"> состояние клавиатуры </param>
         public abstract void OnKeyDown(KeyboardState input);
+
         /// <summary>
         /// Метод обработки вращения колесика мыши
         /// </summary>
         /// <param name="offset"> смещение колесика мыши </param>
         public abstract void OnMouseScroll(float offset);
+
+        /// <summary>
+        /// Метод отрисовки модели
+        /// </summary>
+        /// <param name="shader"> шейдер </param>
+        /// <param name="scene"> текущая сцена </param>
+        public void Draw(Shader shader, Scene scene)
+        {
+            shader.UseCamera(scene.CurrentCamera);
+            foreach (var model in models)
+            {
+                model.Draw(shader, scene);
+            }
+        }
     }
 }

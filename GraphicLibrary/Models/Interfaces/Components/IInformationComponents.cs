@@ -2,8 +2,8 @@
 
 namespace GraphicLibrary.Models.Interfaces.Components
 {
-    public interface IStaticComponents
+    public interface IInformationComponents
     {
-        IReadOnlyList<StaticModelUnit> Models { get; }
+        IReadOnlyList<InformationModelUnit> Models { get; }
     }
 }

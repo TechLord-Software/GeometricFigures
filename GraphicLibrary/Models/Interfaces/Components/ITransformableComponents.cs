@@ -2,7 +2,7 @@
 
 namespace GraphicLibrary.Models.Interfaces.Components
 {
-    public interface IDynamicComponents : IStaticComponents
+    public interface ITransformableComponents : IInformationComponents
     {
         new IReadOnlyList<TransformableModelUnit> Models { get; }
     }

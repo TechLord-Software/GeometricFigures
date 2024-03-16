@@ -1,6 +1,7 @@
 ﻿using GraphicLibrary.GLObjects;
 using GraphicLibrary.Materials;
 using GraphicLibrary.Models.Interfaces.Common;
+using GraphicLibrary.Scenes;
 using GraphicLibrary.Shaders;
 using OpenTK.Mathematics;
 
@@ -25,8 +26,14 @@ namespace GraphicLibrary.Models.Unit
         private VertexBufferObject _vboTextures;
         /// <summary>
         /// Объект, задающий правила передачи данных из объекта vbo в шейдеры
+        /// для объектов, реагирующий на свет
         /// </summary>
-        private VertexArrayObject _vao;
+        private VertexArrayObject _vaoLighted;
+        /// <summary>
+        /// Объект, задающий правила передачи данных из объекта vbo в шейдеры
+        /// для объектов, не реагирующий на свет
+        /// </summary>
+        private VertexArrayObject _vaoUnlighted;
         /// <summary>
         /// Объект, хранящий индексы вершин
         /// </summary>
@@ -47,16 +54,25 @@ namespace GraphicLibrary.Models.Unit
             _vboVertices = new VertexBufferObject(vertices);
             _vboTextures = new VertexBufferObject(textures);
             _vboNormals = new VertexBufferObject(normals);
-            _vao = new VertexArrayObject();
+            _vaoLighted = new VertexArrayObject();
+            _vaoUnlighted = new VertexArrayObject();
             _ebo = new ElementBufferObject(indices);
 
-            _vao.Activate();
+            
+            _vaoLighted.Activate();
 
             _vboVertices.Activate();
-            _vao.AttribPointer(Shader.VertexLocation, Shader.VertexCount, Shader.VertexCount, 0);
+            _vaoLighted.AttribPointer(Shader.VertexLocation, Shader.VertexCount, Shader.VertexCount, 0);
 
             _vboNormals.Activate();
-            _vao.AttribPointer(Shader.NormalLocation, Shader.NormalCount, Shader.NormalCount, 0);
+            _vaoLighted.AttribPointer(Shader.NormalLocation, Shader.NormalCount, Shader.NormalCount, 0);
+
+
+
+            _vaoUnlighted.Activate();
+
+            _vboVertices.Activate();
+            _vaoLighted.AttribPointer(Shader.VertexLocation, Shader.VertexCount, Shader.VertexCount, 0);
 
 
             VertexBufferObject.DeactivateCurrent();
@@ -86,7 +102,8 @@ namespace GraphicLibrary.Models.Unit
 
             _vboVertices = unit._vboVertices;
             _vboNormals = unit._vboNormals;
-            _vao = unit._vao;
+            _vaoLighted = unit._vaoLighted;
+            _vaoUnlighted = unit._vaoUnlighted;
             _ebo = unit._ebo;
         }
 
@@ -94,9 +111,19 @@ namespace GraphicLibrary.Models.Unit
         /// <summary>
         /// Метод отрисовки модели
         /// </summary>
-        public void Draw()
+        /// <param name="shader"> шейдер </param>
+        /// <param name="scene"> текущая сцена </param>
+        /// <exception cref="ArgumentException"> неверный шейдер </exception>
+        public void Draw(Shader shader, Scene scene)
         {
-            _vao.DrawElements(_ebo);
+            shader.UseModelUnit(this);
+
+            if (shader == Shader.LightedShader)
+                _vaoLighted.DrawElements(_ebo);
+            else if (shader == Shader.UnlightedShader)
+                _vaoUnlighted.DrawElements(_ebo);
+            else
+                throw new ArgumentException("Неверный шейдер"); 
         }
         
         /// <summary>

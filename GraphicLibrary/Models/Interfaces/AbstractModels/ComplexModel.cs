@@ -1,7 +1,7 @@
 ﻿using GraphicLibrary.Models.Unit;
 using OpenTK.Mathematics;
 
-namespace GraphicLibrary.Models.Interfaces.Common
+namespace GraphicLibrary.Models.Interfaces.AbstractModels
 {
     /// <summary>
     /// Абстрактный класс комплексной модели
@@ -34,7 +34,7 @@ namespace GraphicLibrary.Models.Interfaces.Common
         /// <param name="unit"> простая модель </param>
         protected ComplexModel(ModelUnit unit)
         {
-            models = new List<ModelUnit>() { unit };
+            models = new List<ModelUnit>() { (ModelUnit)unit.Clone() };
             position = Vector3.Zero;
         }
         /// <summary>
@@ -43,7 +43,11 @@ namespace GraphicLibrary.Models.Interfaces.Common
         /// <param name="units"> перечисление простых обюъектов </param>
         protected ComplexModel(IEnumerable<ModelUnit> units)
         {
-            models = new List<ModelUnit>(units);
+            models = new List<ModelUnit>();
+            foreach (var unit in units)
+            {
+                models.Add((ModelUnit)unit.Clone());
+            }
             position = Vector3.Zero;
         }
 

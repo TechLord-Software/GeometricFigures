@@ -5,7 +5,7 @@ struct Material{
     vec3 diffuse;
     vec3 specular;
 
-    float shininess;
+    float shininness;
     float transparency;
 };
 struct LightSource {
@@ -56,7 +56,7 @@ vec3 calculateLight(LightSource light, vec3 normal, vec3 position, vec3 viewDire
     float diff = max(dot(normal, lightDirection), 0.0);
 
     vec3 reflectDirection = reflect(-lightDirection, normal);
-    float spec = pow(max(dot(viewDirection, reflectDirection), 0.0), material.shininess);
+    float spec = pow(max(dot(viewDirection, reflectDirection), 0.0), material.shininness);
     
     float lightDistance = length(light.position - position);
     float attenuation = 1.0 / (light.constant + light.linear * lightDistance + light.quadratic * (lightDistance * lightDistance));

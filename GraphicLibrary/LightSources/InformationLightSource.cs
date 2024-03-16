@@ -1,5 +1,5 @@
 ﻿using GraphicLibrary.Materials;
-using GraphicLibrary.Models.Interfaces.Common;
+using GraphicLibrary.Models.Interfaces.AbstractModels;
 using GraphicLibrary.Models.Interfaces.Components;
 using GraphicLibrary.Models.Unit;
 using GraphicLibrary.Shaders;
@@ -9,14 +9,8 @@ namespace GraphicLibrary.LightSources
     /// <summary>
     /// Абстрактный класс, описывающий статический источник света
     /// </summary>
-    public abstract class StaticLightSource : TransformationInfoComplexModel, IStaticComponents
+    public abstract class InformationLightSource : TransformationInfoComplexModel, IInformationComponents
     {
-        /// <summary>
-        /// Максимальное количество источников освещения
-        /// </summary>
-        public const int MaxLightSourses = 32;
-
-
         /// <summary>
         /// Структура, содержащая компоненты для затенения по Фонгу
         /// </summary>
@@ -30,16 +24,7 @@ namespace GraphicLibrary.LightSources
         /// <summary>
         /// Список простых моделей
         /// </summary>
-        public IReadOnlyList<StaticModelUnit> Models => models;
-        /// <summary>
-        /// Используемый шейдер
-        /// </summary>
-        public static Shader? Shader { get; set; }
-        /// <summary>
-        /// Шейдер для отправки информации об источниках света
-        /// </summary>
-        public static Shader? LightShader { get; set; }
-
+        public IReadOnlyList<InformationModelUnit> Models => models;
 
 
 
@@ -48,7 +33,7 @@ namespace GraphicLibrary.LightSources
         /// </summary>
         /// <param name="phongParameters"> компоненты для затенения по Фонгу </param>
         /// <param name="attenuation"> параметры затухания света </param>
-        protected StaticLightSource(PhongModel phongParameters, LightAttenuationParameters attenuation) : base()
+        protected InformationLightSource(PhongModel phongParameters, LightAttenuationParameters attenuation) : base()
         {
             PhongParameters = phongParameters;
             Attenuation = attenuation;
@@ -59,7 +44,7 @@ namespace GraphicLibrary.LightSources
         /// <param name="phongParameters"> компоненты для затенения по Фонгу </param>
         /// <param name="attenuation"> параметры затухания света </param>
         /// <param name="unit"> простая модель </param>
-        protected StaticLightSource(PhongModel phongParameters, LightAttenuationParameters attenuation, ModelUnit unit) 
+        protected InformationLightSource(PhongModel phongParameters, LightAttenuationParameters attenuation, ModelUnit unit) 
             : base(unit)
         {
             PhongParameters = phongParameters;
@@ -71,7 +56,7 @@ namespace GraphicLibrary.LightSources
         /// <param name="phongParameters"> компоненты для затенения по Фонгу </param>
         /// <param name="attenuation"> параметры затухания света </param>
         /// <param name="units"> перечисление простых моделей </param>
-        protected StaticLightSource(PhongModel phongParameters, LightAttenuationParameters attenuation, IEnumerable<ModelUnit> units)
+        protected InformationLightSource(PhongModel phongParameters, LightAttenuationParameters attenuation, IEnumerable<ModelUnit> units)
             : base(units)
         {
             PhongParameters = phongParameters;

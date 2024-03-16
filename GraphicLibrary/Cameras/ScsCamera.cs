@@ -10,8 +10,12 @@ namespace GraphicLibrary.Cameras
     /// Камера, расположенная на поверхности сферы и передвигающаяся по ней.
     /// Задается в сферической системе координат (spherical coordinate system - scs)
     /// </summary>
-    public class ScsCamera : Camera
+    public class ScsCamera : Camera, ICloneable
     {
+        /// <summary>
+        /// Объект камеры по умолчанию
+        /// </summary>
+        private static readonly ScsCamera DEFAULT;
         /// <summary>
         /// Минимальный радиус
         /// </summary>
@@ -70,10 +74,21 @@ namespace GraphicLibrary.Cameras
             }
         }
 
-        
+
+        public static ScsCamera Default => (ScsCamera)DEFAULT.Clone();
 
 
 
+        /// <summary>
+        /// Статический конструктор
+        /// </summary>
+        static ScsCamera()
+        {
+            Vector3 position = new Vector3(3, 3, 3);
+            Vector3 target = Vector3.Zero;
+            CameraSettings settings = new CameraSettings();
+            DEFAULT = new ScsCamera(position, target, settings);
+        }
         /// <summary>
         /// Конструтор класса ScsCamera
         /// </summary>
@@ -145,28 +160,46 @@ namespace GraphicLibrary.Cameras
         /// <summary>
         /// Метод, обновляющий позицию камеры при движении мышью
         /// </summary>
-        /// <param name="mousePosition"> позиция мыши </param>
-        /// <param name="e"> аргументы кнопки мыши </param>
-        public override void OnMouseMove(MouseState mousePosition, MouseButtonEventArgs e)
+        /// <param name="mouse"> мышь </param>
+        public override void OnMouseMove(MouseState mouse)
         {
-            if (!e.IsPressed) return;
+            float dx = mouse.X - mouse.PreviousX;
+            float dy = mouse.Y - mouse.PreviousY;
 
-            float dx = mousePosition.X - mousePosition.PreviousX;
-            float dy = mousePosition.Y - mousePosition.PreviousY;
-
-            if (e.Button == MouseButton.Left)
+            if (mouse.IsButtonDown(MouseButton.Left))
             {
                 // Изменение углов тета и фи (перемещение камеры)
                 Phi += dx * Settings.MouseSensitivity;
                 Theta -= dy * Settings.MouseSensitivity;
             }
-            else if (e.Button == MouseButton.Middle)
+            else if (mouse.IsButtonDown(MouseButton.Middle))
             {
                 // Изменение точки фокусировки камеры (перемещение центра сферы и изменение позиции камеры)
                 Target -= dx * Settings.MouseSensitivity * Right;
                 Target += dy * Settings.MouseSensitivity * Up;
                 position -= dx * Settings.MouseSensitivity * Right;
                 position += dy * Settings.MouseSensitivity * Up;
+                Update();
+            }
+        }
+        public override void OnMouseDown(MouseState mouse)
+        {
+            CameraSettings settings;
+            if (mouse.IsButtonDown(MouseButton.Left) || mouse.IsButtonDown(MouseButton.Middle))
+            {
+                settings = Settings;
+                settings.CursorState = CursorState.Hidden;
+                Settings = settings;
+            }
+        }
+        public override void OnMouseUp(MouseState mouse)
+        {
+            CameraSettings settings;
+            if (mouse.IsButtonReleased(MouseButton.Left) || mouse.IsButtonReleased(MouseButton.Middle))
+            {
+                settings = Settings;
+                settings.CursorState = CursorState.Normal;
+                Settings = settings;
             }
         }
         /// <summary>
@@ -184,6 +217,15 @@ namespace GraphicLibrary.Cameras
         public override void OnMouseScroll(float offset)
         {
             R -= offset * Settings.WheelSensitivity;
+        }
+
+        /// <summary>
+        /// Копирование этого объекта
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            return new ScsCamera(position, Target, Settings, models);
         }
     }
 }

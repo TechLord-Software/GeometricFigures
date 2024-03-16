@@ -1,7 +1,7 @@
 ﻿using GraphicLibrary.Models.Information;
 using GraphicLibrary.Models.Unit;
 
-namespace GraphicLibrary.Models.Interfaces.Common
+namespace GraphicLibrary.Models.Interfaces.AbstractModels
 {
     /// <summary>
     /// Абстрактный класс комплексной модели с полями размера и углов поворотов

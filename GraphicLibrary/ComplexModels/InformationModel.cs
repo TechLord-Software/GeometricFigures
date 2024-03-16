@@ -1,4 +1,4 @@
-﻿using GraphicLibrary.Models.Interfaces.Common;
+﻿using GraphicLibrary.Models.Interfaces.AbstractModels;
 using GraphicLibrary.Models.Interfaces.Components;
 using GraphicLibrary.Models.Unit;
 using GraphicLibrary.Shaders;
@@ -8,34 +8,29 @@ namespace GraphicLibrary.ComplexModels
     /// <summary>
     /// Класс, описывающий характеристики комплексной модели
     /// </summary>
-    public abstract class StaticModel : TransformationInfoComplexModel, IStaticComponents
+    public abstract class InformationModel : TransformationInfoComplexModel, IInformationComponents
     {
-        /// <summary>
-        /// Используемый шейдер
-        /// </summary>
-        public static Shader? Shader { get; set; }
-
         /// <summary>
         /// Список простых моделей
         /// </summary>
-        public IReadOnlyList<StaticModelUnit> Models => models;
+        public IReadOnlyList<InformationModelUnit> Models => models;
 
 
 
         /// <summary>
         /// Конструктор класса StaticModel
         /// </summary>
-        protected StaticModel() : base() { }
+        protected InformationModel() : base() { }
         /// <summary>
         /// Конструктор класса StaticModel, принимающиий одну простую модель
         /// </summary>
         /// <param name="unit"> простая модель </param>
-        protected StaticModel(ModelUnit unit) : base(unit) { }
+        protected InformationModel(ModelUnit unit) : base(unit) { }
         /// <summary>
         /// Конструктор класса StaticModel, принимающий перечисление простых объектов
         /// </summary>
         /// <param name="units"> перечисление простых обюъектов </param>
-        protected StaticModel(IEnumerable<ModelUnit> units) : base(units) { }
+        protected InformationModel(IEnumerable<ModelUnit> units) : base(units) { }
 
 
 
