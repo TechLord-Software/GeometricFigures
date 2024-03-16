@@ -1,6 +1,6 @@
 # Blender 4.0.2
 # www.blender.org
-mtllib Sphere.mtl
+mtllib Sphere1.mtl
 o Сфера
 v 0.000000 0.415735 -0.277785
 v 0.000000 0.277785 -0.415735
