@@ -78,7 +78,7 @@ namespace GraphicLibrary.Scenes
             var nativeWindowSettings = new NativeWindowSettings()
             {
                 Profile = ContextProfile.Compatability,
-                Size = new Vector2i(900, 900),
+                ClientSize = new Vector2i(900, 900),
             };
             Vector4 backgroundColor = new Vector4(0.2f, 0.2f, 0.2f, 1f);
             Default = new Scene(GameWindowSettings.Default, nativeWindowSettings, Camera.Default, backgroundColor);
@@ -87,7 +87,7 @@ namespace GraphicLibrary.Scenes
             Model cube = Model.Cube;
             Model icosahedron = Model.Icosahedron;
             Model octahedron = Model.Octahedron;
-            Model sphere = Model.Sphere;
+            Model sphere = Model.Sphere2;
             Model thor = Model.Thor;
 
             tetrahedron.Models[0].Material.PhongParameters.Shininess = 750;
@@ -123,6 +123,7 @@ namespace GraphicLibrary.Scenes
 
             Default.AddModel(tetrahedron);
             Default.AddModel(cube);
+            Default.AddModel(icosahedron);
             Default.AddModel(octahedron);
             Default.AddModel(sphere);
             Default.AddModel(thor);
