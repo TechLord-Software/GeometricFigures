@@ -1,4 +1,5 @@
 ﻿using GraphicLibrary.Cameras.Settings;
+using GraphicLibrary.Models.Information;
 using GraphicLibrary.Models.Unit;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
@@ -148,14 +149,16 @@ namespace GraphicLibrary.Cameras
             position.Y = R * MathF.Cos(Theta) + Target.Y;
             position.Z = R * MathF.Sin(Theta) * MathF.Sin(Phi) + Target.Z;
             
-            // Обновление единичных векторов
+            // Обновление единичных векторов           
             Direction = Vector3.Normalize(Position - Target);
             Right = Vector3.Normalize(Vector3.Cross(Vector3.UnitY, Direction));
             Up = Vector3.Normalize(Vector3.Cross(Direction, Right));
 
-            // Обновление матриц
+            // Обновление матриц 
             ViewMatrix = Matrix4.LookAt(Position, Target, Up);
             ProjectionMatrix = Matrix4.CreatePerspectiveFieldOfView(Settings.Fov, Settings.AspectRatio, CameraSettings.DepthNear, Settings.RenderDistance);
+
+            RotateModels();
         }
         /// <summary>
         /// Метод, обновляющий позицию камеры при движении мышью

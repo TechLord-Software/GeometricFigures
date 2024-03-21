@@ -1,10 +1,13 @@
 ﻿using GraphicLibrary.Cameras.Settings;
+using GraphicLibrary.ComplexModels;
+using GraphicLibrary.Models.Figures;
 using GraphicLibrary.Models.Interfaces.Common;
 using GraphicLibrary.Models.Unit;
 using GraphicLibrary.Scenes;
 using GraphicLibrary.Shaders;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace GraphicLibrary.Cameras
 {
@@ -84,9 +87,39 @@ namespace GraphicLibrary.Cameras
         public void Draw(Shader shader, Scene scene)
         {
             shader.UseCamera(scene.CurrentCamera);
+
+            if (this == scene.CurrentCamera)
+            {
+                var transparencies = MakeInvisible();
+                DrawModels(shader, scene);
+                ReturnTransparency(transparencies);
+                return;
+            }
+
+            DrawModels(shader, scene);
+        }
+        private void DrawModels(Shader shader, Scene scene)
+        {
             foreach (var model in models)
             {
                 model.Draw(shader, scene);
+            }
+        }
+        private List<float> MakeInvisible()
+        {
+            List<float> transparencies = new List<float>();
+            for (int i = 0; i < models.Count; i++)
+            {
+                transparencies.Add(models[i].Material.Transparency);
+                models[i].Material.Transparency = 1;
+            }
+            return transparencies;
+        }
+        private void ReturnTransparency(List<float> transparencies)
+        {
+            for (int i = 0; i < models.Count; i++)
+            {
+                models[i].Material.Transparency = transparencies[i];
             }
         }
     }
